@@ -1,6 +1,9 @@
 package com.switchfully.order.domain.customer;
 
+import java.util.UUID;
+
 public class Customer {
+    private UUID customerId;
     private String firstName;
     private String lastName;
     private String emailAdress;
@@ -8,11 +11,16 @@ public class Customer {
     private String phoneNumber;
 
     public Customer(String firstName, String lastName, String emailAdress, String address, String phoneNumber) {
+        this.customerId = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAdress = emailAdress;
         this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+
+    public UUID getCustomerId() {
+        return customerId;
     }
 
     public String getFirstName() {
@@ -59,7 +67,7 @@ public class Customer {
     public String toString() {
         return "Customer: \n" +
                 firstName + lastName + "\n" +
-                "E-mail address: " + emailAdress+"\n"+
+                "E-mail address: " + emailAdress + "\n" +
                 "Address: " + address + "\n" +
                 "PhoneNumber: " + phoneNumber;
     }
