@@ -1,9 +1,12 @@
 package com.switchfully.order.domain.customer;
 
+import com.switchfully.order.domain.user.UserLevel;
+
 import java.util.UUID;
 
 public class Customer {
     private UUID customerId;
+    private UserLevel userLevel;
     private String firstName;
     private String lastName;
     private String emailAdress;
@@ -18,6 +21,7 @@ public class Customer {
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
+
 
     public UUID getCustomerId() {
         return customerId;
@@ -71,4 +75,6 @@ public class Customer {
                 "Address: " + address + "\n" +
                 "PhoneNumber: " + phoneNumber;
     }
+
+
 }
