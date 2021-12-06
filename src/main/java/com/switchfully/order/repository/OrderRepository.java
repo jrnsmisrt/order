@@ -18,4 +18,13 @@ public class OrderRepository {
         return listOfOrders;
     }
 
+    public Order showOrderById(int orderNumber){
+        for(Order order : listOfOrders){
+            if(order.getOrderNumber()==orderNumber){
+                return order;
+            }
+        }
+        return null;
+    }
+
 }

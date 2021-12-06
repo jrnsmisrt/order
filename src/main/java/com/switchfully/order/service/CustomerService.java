@@ -13,32 +13,35 @@ import java.util.List;
 
 @Service
 public class CustomerService {
-    private OrderService orderService;
+
     private OrderRepository orderRepository;
     private ItemGroupService itemGroupService;
     private List<ItemGroup> basket;
 
     @Autowired
-    public CustomerService(OrderService orderService,OrderRepository orderRepository, ItemGroupService itemGroupService) {
-        this.orderService=orderService;
+    public CustomerService(OrderRepository orderRepository, ItemGroupService itemGroupService) {
+
         this.orderRepository = orderRepository;
-        this.itemGroupService=itemGroupService;
+        this.itemGroupService = itemGroupService;
         this.basket = new ArrayList<>();
     }
 
-    public void addToBasket(Item item, int amount){
+    public void addToBasket(Item item, int amount) {
         basket.add(itemGroupService.createItemGroup(item, amount));
     }
 
-    public Order placeOrder(Customer customer){
-        return orderService.placeOrder(this.basket, customer);
+    public Order placeOrder(Customer customer) {
+        Order thisOrder = new Order(this.basket, customer);
+        orderRepository.showListOfOrders().add(thisOrder);
+        return orderRepository.showOrderById(thisOrder.getOrderNumber());
 
     }
-    public void clearBasket(){
+
+    public void clearBasket() {
         this.basket.clear();
     }
 
-    public List<ItemGroup> showBasket(){
+    public List<ItemGroup> showBasket() {
         return this.basket;
     }
 

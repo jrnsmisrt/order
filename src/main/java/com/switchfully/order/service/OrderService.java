@@ -1,7 +1,6 @@
 package com.switchfully.order.service;
 
 import com.switchfully.order.domain.customer.Customer;
-import com.switchfully.order.domain.item.Item;
 import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.order.Order;
 import com.switchfully.order.repository.CustomerRepository;
@@ -44,12 +43,7 @@ public class OrderService {
     }
 
     public Order showOneOrder(int orderNumber){
-        for(Order order : orderRepository.showListOfOrders()){
-            if(order.getOrderNumber()==orderNumber){
-                return order;
-            }
-        }
-        return null;
+       return orderRepository.showOrderById(orderNumber);
     }
 
 
