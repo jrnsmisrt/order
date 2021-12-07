@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +35,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> viewAllCustomers() {
 
-        return userService.viewAllCustomer().stream()
+        return userService.viewAllCustomers().stream()
                 .map(user -> userMapper.mapUsertoUserDto(user))
                 .collect(Collectors.toList());
     }

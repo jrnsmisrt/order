@@ -27,7 +27,7 @@ public class UserService {
         return userRepository.getUserById(id);
     }
 
-    public List<User> viewAllCustomer(){
+    public List<User> viewAllCustomers(){
         return userRepository.showAllCustomers();
     }
 
