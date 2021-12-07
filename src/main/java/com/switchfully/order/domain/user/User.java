@@ -13,10 +13,9 @@ public class User {
     private String emailAddress;
     private String address;
 
-    public User(String firstName, String lastName, UserLevel userlevel,String emailAddress, String address, String phoneNumber) {
+    public User(String firstName, String lastName,String emailAddress, String address, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userLevel = userlevel;
         this.userId=UUID.randomUUID();
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;

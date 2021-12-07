@@ -1,6 +1,7 @@
 package com.switchfully.order.api;
 
 import com.switchfully.order.api.mapper.UserMapper;
+import com.switchfully.order.domain.user.User;
 import com.switchfully.order.domain.user.UserDto;
 import com.switchfully.order.repository.UserRepository;
 import com.switchfully.order.service.UserService;
@@ -38,6 +39,13 @@ public class UserController {
         return userService.viewAllCustomers().stream()
                 .map(user -> userMapper.mapUsertoUserDto(user))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(produces="application/json", consumes="application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createCustomerAccount(@RequestBody UserDto userDto){
+        User user = userMapper.mapUserDtoToUser(userDto);
+        userService.createCustomerAccount(user);
     }
 
 }

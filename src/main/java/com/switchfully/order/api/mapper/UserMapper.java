@@ -20,7 +20,7 @@ public class UserMapper {
     public User mapUserDtoToUser(UserDto userDto) {
         return new User(userDto.getFirstName(),
                 userDto.getLastName(),
-                userDto.showUserLevel(), userDto.getEmailAddress(),
+                userDto.getEmailAddress(),
                 userDto.getAddress(),
                 userDto.getPhoneNumber());
     }
