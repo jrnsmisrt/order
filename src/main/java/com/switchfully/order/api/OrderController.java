@@ -10,16 +10,13 @@ import com.switchfully.order.repository.OrderRepository;
 import com.switchfully.order.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping(path = "/orders")
 public class OrderController {
     private final OrderService orderService;
@@ -37,11 +34,9 @@ public class OrderController {
     @GetMapping(produces="application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDto> viewAllOrders(){
-        List<OrderDto> allOrdersDtoList;
-        allOrdersDtoList = orderService.showAllOrders().stream()
+        return orderRepository.showListOfOrders().stream()
                 .map(orderMapper::mapOrderToOrderDto)
                 .collect(Collectors.toList());
-        return allOrdersDtoList;
     }
 
     @GetMapping(produces="application/json", consumes="application/json")

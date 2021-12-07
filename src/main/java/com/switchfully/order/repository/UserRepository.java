@@ -14,6 +14,7 @@ public class UserRepository {
 
     public UserRepository(){
         this.listOfUsers=new ArrayList<>();
+        fillRepositoryWithDummyUsers();
     }
 
 
@@ -49,5 +50,12 @@ public class UserRepository {
 
     public void addUser(User user){
         listOfUsers.add(user);
+    }
+
+    private void fillRepositoryWithDummyUsers(){
+        User admin = new User("The", "Administrator", "admin@order.com", "orderstreet 1, Brussels", "010");
+        admin.changeUserLevel(UserLevel.ADMIN);
+        User dummyCustomer1 = new User("Dummy", "Customer1", "customer1@order.com", "orderstreet 2, Brussels", "020");
+
     }
 }
