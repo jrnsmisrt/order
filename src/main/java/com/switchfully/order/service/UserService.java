@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -24,6 +25,14 @@ public class UserService {
 
     public User getUserById(String id){
         return userRepository.getUserById(id);
+    }
+
+    public List<User> viewAllCustomer(){
+        return userRepository.showAllCustomers();
+    }
+
+    public User viewOneCustomer(String userId){
+        return userRepository.getCustomerById(userId);
     }
 
 

@@ -27,6 +27,16 @@ public class UserRepository {
         return null;
     }
 
+    public User getCustomerById(String id){
+        for(User user : listOfUsers){
+            if(user.getUserId().toString().equals(id)&&user.showUserLevel()==UserLevel.CUSTOMER){
+                return user;
+            }
+
+        }
+        return null;
+    }
+
     public List<User> showAllUsers(){
         return listOfUsers;
     }
@@ -35,5 +45,9 @@ public class UserRepository {
         return listOfUsers.stream()
                 .filter(user->user.showUserLevel().equals(UserLevel.CUSTOMER))
                 .collect(Collectors.toList());
+    }
+
+    public void addUser(User user){
+        listOfUsers.add(user);
     }
 }

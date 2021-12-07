@@ -2,7 +2,9 @@ package com.switchfully.order.api.mapper;
 
 import com.switchfully.order.domain.user.User;
 import com.switchfully.order.domain.user.UserDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
     public UserDto mapUsertoUserDto(User user) {
