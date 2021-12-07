@@ -13,21 +13,18 @@ public class ItemDto {
         this.description = description;
         this.price = price;
         this.amountInStock = amountInStock;
-        setItemId();
+
     }
 
     public String getItemid() {
-        return itemId;
+        return this.itemId;
     }
 
-    private void setItemId() {
-        String tempName = name;
-        itemId = removeVowels(tempName).toUpperCase();
+    private ItemDto setItemId(String itemId) {
+        this.itemId=itemId;
+        return this;
     }
 
-    private String removeVowels(String word) {
-        return word.replaceAll("[aeiou]", "").trim();
-    }
 
     public ItemDto updateItem(String name, String description, double price, int amountInStock) {
         this.name = name;
@@ -44,9 +41,17 @@ public class ItemDto {
     public int ShowAmountInStock() {
         return amountInStock;
     }
+    public ItemDto setAmountInStock(int amountInStock){
+        this.amountInStock=amountInStock;
+        return this;
+    }
 
     public double getPrice() {
         return price;
+    }
+    public ItemDto setPrice(double price){
+        this.price=price;
+        return this;
     }
 
     @Override
