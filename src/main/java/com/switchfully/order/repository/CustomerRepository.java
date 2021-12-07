@@ -16,7 +16,12 @@ public class CustomerRepository {
     }
 
     public Customer getCustomerFromListOfCustomer(String id){
-        return null;
+        for(Customer customer : listOfCustomers){
+            if((customer.getCustomerId().toString()).equals(id)){
+                return customer;
+            }
+        }
+            return null;
     }
 
 

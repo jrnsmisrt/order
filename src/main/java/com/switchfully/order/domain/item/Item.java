@@ -1,6 +1,6 @@
 package com.switchfully.order.domain.item;
 
-public abstract class Item {
+public class Item {
     private String itemId;
     private String name;
     private String description;

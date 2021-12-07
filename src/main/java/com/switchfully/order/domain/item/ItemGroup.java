@@ -26,7 +26,7 @@ public class ItemGroup {
     }
 
     public void calculateShippingDate() {
-        if (item.ShowAmountInStock() > 0) {
+        if (this.item.ShowAmountInStock() > 0) {
             this.shippingDate = LocalDate.now().plusDays(1);
         }
         else this.shippingDate = LocalDate.now().plusDays(7);
