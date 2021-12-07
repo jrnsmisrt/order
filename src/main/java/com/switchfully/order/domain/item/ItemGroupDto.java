@@ -4,13 +4,14 @@ import java.time.LocalDate;
 
 public class ItemGroupDto {
     private Item item;
+    private String itemId;
     private int amount;
     private double itemGroupPrice;
     private LocalDate shippingDate;
 
-
-    public ItemGroupDto(String itemId, int amount) {
-        this.amount = amount;
+    public ItemGroupDto setItemid(String itemId){
+        this.itemId = itemId;
+        return this;
     }
 
     public double getItemGroupPrice() {
@@ -33,5 +34,9 @@ public class ItemGroupDto {
     public ItemGroupDto setAmount(int amount){
         this.amount = amount;
         return this;
+    }
+
+    public String getItemGroupId() {
+        return itemId;
     }
 }

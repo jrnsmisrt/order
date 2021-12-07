@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 public class ItemGroup {
     private Item item;
+    private String itemId;
     private int amount;
     private double itemGroupPrice;
     private LocalDate shippingDate;
@@ -13,10 +14,16 @@ public class ItemGroup {
 
 
     public ItemGroup(String itemId, int amount) {
+        this.itemId = itemId;
         this.amount = amount;
         calculateShippingDate();
         calculateItemGroupPrice();
     }
+
+    public String getItemId(){
+        return itemId;
+    }
+
 
     private void calculateItemGroupPrice() {
         itemGroupPrice = item.getPrice()*amount;
@@ -26,7 +33,7 @@ public class ItemGroup {
     }
 
     public void calculateShippingDate() {
-        if (this.item.ShowAmountInStock() > 0) {
+        if (this.item.showAmountInStock() > 0) {
             this.shippingDate = LocalDate.now().plusDays(1);
         }
         else this.shippingDate = LocalDate.now().plusDays(7);
@@ -43,7 +50,7 @@ public class ItemGroup {
     @Override
     public String toString() {
         return "[ [ItemGroup]" +"\n"+
-                "* Item ordered: " + item.getNameOfItem() +"\n"+
+                "* Item ordered: " + itemId +"\n"+
                 "* Amount ordered: " + amount +"\n"+
                 "* Price of itemGroup: " + itemGroupPrice+" ]";
     }
