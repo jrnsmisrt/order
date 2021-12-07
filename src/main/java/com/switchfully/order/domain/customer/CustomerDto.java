@@ -13,6 +13,10 @@ public class CustomerDto {
     public UUID getCustomerId() {
         return this.customerId;
     }
+    public CustomerDto setCustomerId(UUID id){
+        this.customerId=id;
+        return this;
+    }
 
     public String getFirstName() {
         return firstName;

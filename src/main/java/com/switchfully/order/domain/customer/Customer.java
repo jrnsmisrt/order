@@ -6,7 +6,6 @@ import java.util.UUID;
 
 public class Customer {
     private UUID customerId;
-    private UserLevel userLevel;
     private String firstName;
     private String lastName;
     private String emailAdress;
