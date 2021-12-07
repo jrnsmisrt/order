@@ -20,11 +20,11 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.address = address;
+        this.userLevel=UserLevel.CUSTOMER;
     }
 
-    public UserLevel changeUserLevel(UserLevel userLevel){
+    public void changeUserLevel(UserLevel userLevel){
         this.userLevel= userLevel;
-        return this.userLevel;
     }
 
     public UserLevel showUserLevel(){

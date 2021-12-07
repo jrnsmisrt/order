@@ -11,6 +11,7 @@ public class UserMapper {
         return new UserDto()
                 .setUserId(user.getUserId())
                 .changeUserLevel(user.showUserLevel())
+                .changeEmailAddress(user.getEmailAddress())
                 .changeAddress(user.getAddress())
                 .changePhoneNumber(user.getPhoneNumber())
                 .changeFirstName(user.getFirstName())
