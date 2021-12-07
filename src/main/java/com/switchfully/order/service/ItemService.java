@@ -25,7 +25,17 @@ public class ItemService {
     }
 
     public void addItem(Item item){
-
         itemRepository.addItem(item);
+    }
+
+    public void updateItem(Item updateItem, String itemId){
+        for(Item item : itemRepository.showListOfItems()){
+            if(item.getItemid().equals(itemId)){
+                item.changeDescription(updateItem.showDescription());
+                item.changeNameOfItem(updateItem.getNameOfItem());
+                item.changePriceOfItem(updateItem.getPrice());
+                item.changeAmountOfItem(updateItem.showAmountInStock());
+            }
+        }
     }
 }

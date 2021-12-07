@@ -12,7 +12,6 @@ public class Order {
 
     public Order(List<ItemGroup> itemsToOrder) {
         this.listOfItemsToOrder=itemsToOrder;
-
         orderCounter++;
         orderNumber=orderCounter;
     }

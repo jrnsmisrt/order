@@ -1,5 +1,6 @@
 package com.switchfully.order.service;
 
+import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.order.Order;
 
 import com.switchfully.order.repository.ItemGroupRepository;
@@ -35,6 +36,10 @@ public class OrderService {
 
     public Order showOneOrder(int orderNumber){
        return orderRepository.showOrderById(orderNumber);
+    }
+
+    public void orderItems(List<ItemGroup> itemsToOrder){
+        orderRepository.addOrderItemsToRepository(itemsToOrder);
     }
 
 

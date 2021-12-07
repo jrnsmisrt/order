@@ -24,14 +24,6 @@ public class ItemDto {
         return name;
     }
 
-    public ItemDto updateItem(String name, String description, double price, int amountInStock) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.amountInStock = amountInStock;
-        return this;
-    }
-
     public ItemDto showItem() {
         return this;
     }

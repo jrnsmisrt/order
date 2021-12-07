@@ -30,15 +30,12 @@ public class Item {
         return name;
     }
 
-    private String removeVowels(String word) {
-        return word.replaceAll("[aeiou]", "").trim();
+    public void changeNameOfItem(String name){
+        this.name=name;
     }
 
-    public void updateItem(String name, String description, double price, int amountInStock) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.amountInStock = amountInStock;
+    private String removeVowels(String word) {
+        return word.replaceAll("[aeiou]", "").trim();
     }
 
     public Item showItem() {
@@ -53,9 +50,15 @@ public class Item {
     public int showAmountInStock() {
         return amountInStock;
     }
+    public void changeAmountOfItem(int amount){
+        this.amountInStock=amount;
+    }
 
     public double getPrice() {
         return price;
+    }
+    public void changePriceOfItem(double price){
+        this.price = price;
     }
 
     @Override

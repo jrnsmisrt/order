@@ -1,5 +1,6 @@
 package com.switchfully.order.repository;
 
+import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.order.Order;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +35,10 @@ public class OrderRepository {
             totalPriceOfAllOrders += order.getTotalPrice();
         }
         return totalPriceOfAllOrders;
+    }
+
+    public void addOrderItemsToRepository(List<ItemGroup> listOfItems){
+        listOfOrders.add(new Order(listOfItems));
     }
 
     @Override
