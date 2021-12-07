@@ -23,4 +23,9 @@ public class ItemService {
         }
         return null;
     }
+
+    public void addItem(Item item){
+
+        itemRepository.addItem(item);
+    }
 }

@@ -1,8 +1,6 @@
 package com.switchfully.order.service;
 
-import com.switchfully.order.domain.customer.Customer;
-import com.switchfully.order.domain.item.Item;
-import com.switchfully.order.repository.CustomerRepository;
+import com.switchfully.order.domain.user.User;
 import com.switchfully.order.repository.ItemRepository;
 import com.switchfully.order.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,27 +12,19 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
-    private final CustomerRepository customerRepository;
+
 
 
     @Autowired
-    public UserService(UserRepository userRepository, ItemRepository itemRepository, CustomerRepository customerRepository) {
+    public UserService(UserRepository userRepository, ItemRepository itemRepository) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
-        this.customerRepository=customerRepository;
+
     }
 
-    public void addItem(Item item){
-
-        itemRepository.addItem(item);
+    public User getUserById(String id){
+        return userRepository.getUserById(id);
     }
 
-    public List<Customer> showAllCustomers(){
-        return customerRepository.showListOfCustomers();
-    }
-
-    public Customer viewCustomer(String customerId){
-        return customerRepository.getCustomerFromListOfCustomer(customerId);
-    }
 
 }

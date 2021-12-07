@@ -2,7 +2,9 @@ package com.switchfully.order.api.mapper;
 
 import com.switchfully.order.domain.item.Item;
 import com.switchfully.order.domain.item.ItemDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ItemMapper {
 
     public ItemDto mapItemToItemDto(Item item){
