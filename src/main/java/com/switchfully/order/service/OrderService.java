@@ -38,6 +38,10 @@ public class OrderService {
        return orderRepository.showOrderById(orderNumber);
     }
 
+    public List<Order> showAllOrders(){
+        return orderRepository.showListOfOrders();
+    }
+
     public void orderItems(List<ItemGroup> itemsToOrder){
         orderRepository.addOrderItemsToRepository(itemsToOrder);
     }

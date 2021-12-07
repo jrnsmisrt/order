@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/items")
 public class ItemController {
     private final ItemService itemService;
-    private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
 
     @Autowired
-    public ItemController(ItemService itemService, ItemRepository itemRepository, ItemMapper itemMapper) {
+    public ItemController(ItemService itemService, ItemMapper itemMapper) {
         this.itemService = itemService;
-        this.itemRepository = itemRepository;
         this.itemMapper = itemMapper;
     }
 
@@ -28,10 +26,10 @@ public class ItemController {
         itemService.addItem(itemMapper.mapItemDtoToItem(item));
     }
 
-    @GetMapping(produces="application/json", consumes="application/json")
+    /*@GetMapping(produces="application/json", consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public void updateItem(@RequestBody ItemDto item, String itemId){
         itemService.updateItem(itemMapper.mapItemDtoToItem(item),itemId);
-    }
+    }*/
 
 }
