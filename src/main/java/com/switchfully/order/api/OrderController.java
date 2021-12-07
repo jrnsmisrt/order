@@ -53,6 +53,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public void orderItems(@RequestBody List<ItemGroupDto> itemsToOrder, UserDto customer){
         User customerUser = userMapper.mapUserDtoToUser(customer);
+
        orderService.orderItems(itemsToOrder.stream()
                 .map(itemGroupMapper::mapItemGroupDtoToItemGroup)
                 .collect(Collectors.toList()),customerUser);
