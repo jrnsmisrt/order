@@ -44,8 +44,13 @@ public class Item {
     public Item showItem() {
         return this;
     }
-
-    public int ShowAmountInStock() {
+    public String showDescription(){
+        return description;
+    }
+    public void changeDescription(String description){
+        this.description=description;
+    }
+    public int showAmountInStock() {
         return amountInStock;
     }
 

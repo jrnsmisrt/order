@@ -7,24 +7,22 @@ public class ItemDto {
     private double price;
     private int amountInStock;
 
-
-    public ItemDto(String name, String description, double price, int amountInStock) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.amountInStock = amountInStock;
-
-    }
-
     public String getItemid() {
         return this.itemId;
     }
 
-    private ItemDto setItemId(String itemId) {
+    public ItemDto setItemId(String itemId) {
         this.itemId=itemId;
         return this;
     }
 
+    public ItemDto setName(String name){
+        this.name = name;
+        return this;
+    }
+    public String showName(){
+        return name;
+    }
 
     public ItemDto updateItem(String name, String description, double price, int amountInStock) {
         this.name = name;
@@ -53,7 +51,13 @@ public class ItemDto {
         this.price=price;
         return this;
     }
-
+    public ItemDto changeDescription(String description){
+        this.description=description;
+        return this;
+    }
+    public String showDescription(){
+        return description;
+    }
     @Override
     public String toString() {
         return "[ " + name + " ] \n" +
