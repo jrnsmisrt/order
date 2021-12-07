@@ -12,6 +12,7 @@ public class Customer {
     private String address;
     private String phoneNumber;
 
+
     public Customer(String firstName, String lastName, String emailAdress, String address, String phoneNumber) {
         this.customerId = UUID.randomUUID();
         this.firstName = firstName;

@@ -26,6 +26,10 @@ public class Item {
         itemId = removeVowels(tempName).toUpperCase();
     }
 
+    public String getNameOfItem(){
+        return name;
+    }
+
     private String removeVowels(String word) {
         return word.replaceAll("[aeiou]", "").trim();
     }
@@ -51,10 +55,10 @@ public class Item {
 
     @Override
     public String toString() {
-        return "[ " + name + " ] \n" +
+        return "[ [ " + name + " ] \n" +
                 "* Description: " + description + " \n" +
                 "* Price: " + price + " \n" +
-                "* Amount In Stock: " + amountInStock;
+                "* Amount In Stock: " + amountInStock+" ]";
 
     }
 

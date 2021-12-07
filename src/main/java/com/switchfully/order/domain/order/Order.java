@@ -32,11 +32,13 @@ public class Order {
         return totalPrice;
     }
 
+
+
     @Override
     public String toString() {
-        return "[ Order ]" +"\n"+
+        return "[ [ Order ]" +"\n"+
                 "* OrderNumber=" + orderNumber  +"\n"+
                 "* Items ordered" + listOfItemsToOrder +"\n"+
-                "* TotalPrice=" + totalPrice+" EUR";
+                "* TotalPrice=" + totalPrice+" EUR  ]";
     }
 }

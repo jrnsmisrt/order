@@ -40,4 +40,11 @@ public class ItemGroup {
         return amount;
     }
 
+    @Override
+    public String toString() {
+        return "[ [ItemGroup]" +"\n"+
+                "* Item ordered: " + item.getNameOfItem() +"\n"+
+                "* Amount ordered: " + amount +"\n"+
+                "* Price of itemGroup: " + itemGroupPrice+" ]";
+    }
 }

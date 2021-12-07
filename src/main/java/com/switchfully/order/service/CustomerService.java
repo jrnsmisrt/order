@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -19,6 +21,7 @@ public class CustomerService {
     private ItemRepository itemRepository;
     private ItemGroupService itemGroupService;
     private List<ItemGroup> basket;
+
 
     @Autowired
     public CustomerService(OrderRepository orderRepository, ItemGroupService itemGroupService, ItemRepository itemRepository) {
@@ -39,10 +42,9 @@ public class CustomerService {
 
     }
 
-    public Order placeOrder(Customer customer) {
+    public void placeOrder(Customer customer) {
         Order thisOrder = new Order(this.basket, customer);
         orderRepository.showListOfOrders().add(thisOrder);
-        return orderRepository.showOrderById(thisOrder.getOrderNumber());
 
     }
 
@@ -53,6 +55,17 @@ public class CustomerService {
 
     public List<ItemGroup> showBasket() {
         return this.basket;
+    }
+
+    public List<Order> viewReportOfOrders(Customer customer){
+        return orderRepository.showListOfOrders().stream()
+                .sorted(Comparator.comparingInt(Order::getOrderNumber))
+                .collect(Collectors.toList());
+    }
+
+    public void reOrderExistingOrder(int orderNumber, Customer customer){
+        Order reOrder = orderRepository.showOrderById(orderNumber);
+        orderRepository.showListOfOrders().add(reOrder);
     }
 
 }
