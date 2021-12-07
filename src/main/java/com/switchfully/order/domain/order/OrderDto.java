@@ -8,18 +8,9 @@ import java.util.List;
 public class OrderDto {
 
     private int orderNumber;
-    private static int orderCounter;
-    private ItemGroup itemGroup;
     private Customer customer;
     private double totalPrice;
     private List<ItemGroup> listOfItemsToOrder;
-
-    public OrderDto(List<ItemGroup> itemsToOrder, Customer customer) {
-        this.listOfItemsToOrder = itemsToOrder;
-        this.customer = customer;
-        orderCounter++;
-        orderNumber = orderCounter;
-    }
 
     public int getOrderNumber() {
         return this.orderNumber;
@@ -28,6 +19,15 @@ public class OrderDto {
     public OrderDto setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
         return this;
+    }
+
+    public OrderDto setCustomer(Customer customer){
+        this.customer=customer;
+        return this;
+    }
+
+    public Customer getCustomer(){
+        return customer;
     }
 
     public double getTotalPrice() {
@@ -43,6 +43,14 @@ public class OrderDto {
         return this;
     }
 
+    public OrderDto setListOfItemsToOrder(List<ItemGroup> listOfItemsToOrder){
+        this.listOfItemsToOrder=listOfItemsToOrder;
+        return this;
+    }
+
+    public List<ItemGroup> getListOfItemsToOrder(){
+        return listOfItemsToOrder;
+    }
     @Override
     public String toString() {
         return "[ Order ]" + "\n" +

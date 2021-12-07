@@ -8,7 +8,6 @@ import java.util.List;
 public class Order {
     private int orderNumber;
     private static int orderCounter;
-    private ItemGroup itemGroup;
     private Customer customer;
     private double totalPrice;
     private List<ItemGroup> listOfItemsToOrder;
@@ -23,6 +22,10 @@ public class Order {
         return this.orderNumber;
     }
 
+    public Customer getCustomer(){
+        return customer;
+    }
+
     public double getTotalPrice() {
 
         for(ItemGroup itemGroup: listOfItemsToOrder){
@@ -32,6 +35,9 @@ public class Order {
         return totalPrice;
     }
 
+    public List<ItemGroup> getListOfItemsToOrder(){
+        return listOfItemsToOrder;
+    }
 
 
     @Override
