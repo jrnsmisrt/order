@@ -15,23 +15,42 @@ public class OrderService {
 
     private final ItemGroupRepository itemGroupRepository;
     private OrderRepository orderRepository;
+    private ItemGroupService itemGroupService;
 
 
     @Autowired
-    public OrderService(ItemGroupRepository itemGroupRepository, OrderRepository orderRepository) {
+    public OrderService(ItemGroupRepository itemGroupRepository, OrderRepository orderRepository, ItemGroupService itemGroupService) {
 
         this.itemGroupRepository = itemGroupRepository;
         this.orderRepository=orderRepository;
+        this.itemGroupService=itemGroupService;
 
     }
 
     public double getTotalPriceForOrder(int orderNumber){
+        double totalPriceForOrder=0;
         for(Order order : orderRepository.showListOfOrders()){
             if(order.getOrderNumber()==orderNumber){
-                return order.getTotalPrice();
+               totalPriceForOrder += getItemGroupPriceFromOrder(order);
             }
         }
-        return 0;
+        return totalPriceForOrder;
+    }
+
+    public double getTotalPriceForAllOrders(){
+        double totalPriceAllOrders=0;
+        for(Order order: orderRepository.showListOfOrders()){
+            totalPriceAllOrders+=getTotalPriceForOrder(order.getOrderNumber());
+        }
+        return totalPriceAllOrders;
+    }
+
+    private double getItemGroupPriceFromOrder(Order order) {
+        double itemGroupPrice=0;
+        for(ItemGroup itemGroup : order.getListOfItemsToOrder()){
+            itemGroupPrice+=itemGroupService.getItemGroupPrice(itemGroup);
+        }
+        return itemGroupPrice;
     }
 
     public Order showOneOrder(int orderNumber){

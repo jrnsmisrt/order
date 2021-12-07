@@ -27,6 +27,10 @@ public class ItemGroupDto {
     public LocalDate getShippingDate() {
         return shippingDate;
     }
+    public ItemGroupDto changeShippingDate(LocalDate shippingDate){
+        this.shippingDate=shippingDate;
+        return this;
+    }
 
     public int getAmount() {
         return amount;

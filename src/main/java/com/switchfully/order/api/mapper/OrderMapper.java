@@ -10,13 +10,12 @@ public class OrderMapper {
     public OrderDto mapOrderToOrderDto(Order order){
         return new OrderDto()
                 .setListOfItemsToOrder(order.getListOfItemsToOrder())
-                .setOrderNumber(order.getOrderNumber())
-                .setTotalPrice(order.getTotalPrice());
+                .setOrderNumber(order.getOrderNumber());
 
     }
 
     public Order mapOrderDtoToOrder(OrderDto orderDto){
-        return null;
+        return new Order(orderDto.getListOfItemsToOrder());
 
     }
 }

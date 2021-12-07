@@ -4,6 +4,7 @@ import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.order.Order;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class OrderRepository {
 
     public OrderRepository() {
         this.listOfOrders = new ArrayList<>();
+        fillRepositoryWithDummyOrders();
     }
 
     public List<Order> showListOfOrders() {
@@ -28,22 +30,26 @@ public class OrderRepository {
         return null;
     }
 
-    public double showTotalPriceOfAllOrders() {
-        double totalPriceOfAllOrders = 0;
-
-        for (Order order : listOfOrders) {
-            totalPriceOfAllOrders += order.getTotalPrice();
-        }
-        return totalPriceOfAllOrders;
-    }
-
     public void addOrderItemsToRepository(List<ItemGroup> listOfItems){
         listOfOrders.add(new Order(listOfItems));
     }
 
-    @Override
-    public String toString() {
-        return listOfOrders+"\n"+
-                "Total price of all orders: "+showTotalPriceOfAllOrders();
+    private void fillRepositoryWithDummyOrders(){
+        List<ItemGroup> dummyOrderList = new ArrayList<>();
+        LocalDate shippingDate = LocalDate.now();
+        ItemGroup dummyItemGroup1 = new ItemGroup("DMMYITM1", shippingDate.plusDays(1), 2);
+        ItemGroup dummyItemGroup2 = new ItemGroup("DMMYITM2", shippingDate.plusDays(1) ,1);
+        ItemGroup dummyItemGroup3 = new ItemGroup("DMMYITM3", shippingDate.plusDays(1), 6);
+        ItemGroup dummyItemGroup4 = new ItemGroup("DMMYITM4", shippingDate.plusDays(1), 5);
+        ItemGroup dummyItemGroup5 = new ItemGroup("DMMYITM5", shippingDate.plusDays(1), 20);
+        dummyOrderList.add(dummyItemGroup1);
+        dummyOrderList.add(dummyItemGroup2);
+        dummyOrderList.add(dummyItemGroup3);
+        dummyOrderList.add(dummyItemGroup4);
+        dummyOrderList.add(dummyItemGroup5);
+        Order dummyOrder = new Order(dummyOrderList);
+
+        listOfOrders.add(dummyOrder);
     }
+
 }

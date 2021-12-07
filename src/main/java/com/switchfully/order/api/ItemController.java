@@ -34,6 +34,12 @@ public class ItemController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping(produces="application/json", path="/{itemId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ItemDto viewItem(@PathVariable String itemId){
+        return itemMapper.mapItemToItemDto(itemService.getItemFromListWithId(itemId));
+    }
+
     @GetMapping(produces="application/json", consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public void addItem(@RequestBody ItemDto item){

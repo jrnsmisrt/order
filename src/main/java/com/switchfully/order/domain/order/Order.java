@@ -7,7 +7,6 @@ import java.util.List;
 public class Order {
     private int orderNumber;
     private static int orderCounter;
-    private double totalPrice;
     private List<ItemGroup> listOfItemsToOrder;
 
     public Order(List<ItemGroup> itemsToOrder) {
@@ -18,18 +17,6 @@ public class Order {
     public int getOrderNumber(){
         return this.orderNumber;
     }
-
-
-
-    public double getTotalPrice() {
-
-        for(ItemGroup itemGroup: listOfItemsToOrder){
-            totalPrice+=itemGroup.getItemGroupPrice();
-        }
-
-        return totalPrice;
-    }
-
     public List<ItemGroup> getListOfItemsToOrder(){
         return listOfItemsToOrder;
     }
@@ -39,7 +26,6 @@ public class Order {
     public String toString() {
         return "[ [ Order ]" +"\n"+
                 "* OrderNumber=" + orderNumber  +"\n"+
-                "* Items ordered" + listOfItemsToOrder +"\n"+
-                "* TotalPrice=" + totalPrice+" EUR  ]";
+                "* Items ordered" + listOfItemsToOrder +" ]";
     }
 }
