@@ -1,16 +1,19 @@
 package com.switchfully.order.domain.order;
 
 import com.switchfully.order.domain.item.ItemGroup;
+import com.switchfully.order.domain.user.User;
 
 import java.util.List;
 
 public class Order {
+    private User customer;
     private int orderNumber;
     private static int orderCounter;
     private List<ItemGroup> listOfItemsToOrder;
 
-    public Order(List<ItemGroup> itemsToOrder) {
+    public Order(List<ItemGroup> itemsToOrder, User customer) {
         this.listOfItemsToOrder=itemsToOrder;
+        this.customer=customer;
         orderCounter++;
         orderNumber=orderCounter;
     }
@@ -19,6 +22,9 @@ public class Order {
     }
     public List<ItemGroup> getListOfItemsToOrder(){
         return listOfItemsToOrder;
+    }
+    public User getCustomer(){
+        return customer;
     }
 
 

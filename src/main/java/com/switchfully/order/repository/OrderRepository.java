@@ -2,6 +2,7 @@ package com.switchfully.order.repository;
 
 import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.order.Order;
+import com.switchfully.order.domain.user.User;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -30,12 +31,13 @@ public class OrderRepository {
         return null;
     }
 
-    public void addOrderItemsToRepository(List<ItemGroup> listOfItems){
-        listOfOrders.add(new Order(listOfItems));
+    public void addOrderItemsToRepository(List<ItemGroup> listOfItems, User customer){
+        listOfOrders.add(new Order(listOfItems,customer));
     }
 
     private void fillRepositoryWithDummyOrders(){
         List<ItemGroup> dummyOrderList = new ArrayList<>();
+        User dummyCustomer = new User("Dummy1", "Customer1", "customer1@order.com", "orderstreet 2, Brussels", "020");
         LocalDate shippingDate = LocalDate.now();
         ItemGroup dummyItemGroup1 = new ItemGroup("DMMYITM1", shippingDate.plusDays(1), 2);
         ItemGroup dummyItemGroup2 = new ItemGroup("DMMYITM2", shippingDate.plusDays(1) ,1);
@@ -47,7 +49,7 @@ public class OrderRepository {
         dummyOrderList.add(dummyItemGroup3);
         dummyOrderList.add(dummyItemGroup4);
         dummyOrderList.add(dummyItemGroup5);
-        Order dummyOrder = new Order(dummyOrderList);
+        Order dummyOrder = new Order(dummyOrderList, dummyCustomer);
 
         listOfOrders.add(dummyOrder);
     }

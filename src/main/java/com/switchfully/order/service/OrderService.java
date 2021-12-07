@@ -3,6 +3,7 @@ package com.switchfully.order.service;
 import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.order.Order;
 
+import com.switchfully.order.domain.user.User;
 import com.switchfully.order.repository.ItemGroupRepository;
 import com.switchfully.order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +62,8 @@ public class OrderService {
         return orderRepository.showListOfOrders();
     }
 
-    public void orderItems(List<ItemGroup> itemsToOrder){
-        orderRepository.addOrderItemsToRepository(itemsToOrder);
+    public void orderItems(List<ItemGroup> itemsToOrder, User customer){
+        orderRepository.addOrderItemsToRepository(itemsToOrder, customer);
     }
 
 
