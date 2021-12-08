@@ -15,9 +15,23 @@ public class ItemServiceTest {
     ItemRepository itemRepository;
 
     @Test
-    void GivenItemId_WhenGettingItemFromListWithId_AssertCorrectItemIsReturned(){
+    void givenItemId_WhenGettingItemFromListWithId_AssertCorrectItemIsReturned() {
         String givenItemId = "DMMYTM1";
         Item testItem = new Item("DummyItem1", "dummy dummy", 25, 100);
         Assertions.assertThat(itemService.getItemFromListWithId(givenItemId)).isEqualTo(testItem);
+    }
+
+    @Test
+    void givenNewItem_WhenAddingItem_AssertItemIsAddedToRepository() {
+        Item testItem = new Item("testItem", "testItem", 20, 1);
+        itemService.addItem(testItem);
+        Assertions.assertThat(itemRepository.showListOfItems()).contains(testItem);
+    }
+
+    @Test
+    void givenUpdateParameters_WhenUpdatingItem_AssertUpdatedItemContainsGivenParameters(){
+        Item testItem = new Item("testItem", "testItem", 20, 1);
+        itemService.updateItem(testItem,"DMMYTM1");
+        Assertions.assertThat(itemService.getItemFromListWithId("DMMYTM1")).isEqualTo(testItem);
     }
 }
