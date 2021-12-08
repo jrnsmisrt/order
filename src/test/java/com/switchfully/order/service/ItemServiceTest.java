@@ -31,7 +31,7 @@ public class ItemServiceTest {
     @Test
     void givenUpdateParameters_WhenUpdatingItem_AssertUpdatedItemContainsGivenParameters(){
         Item testItem = new Item("testItem", "testItem", 20, 1);
-        itemService.updateItem(testItem,"DMMYTM1");
-        Assertions.assertThat(itemService.getItemFromListWithId("DMMYTM1")).isEqualTo(testItem);
+        itemService.updateItem(testItem,"DMMYTM2");
+        Assertions.assertThat(itemService.getItemFromListWithId("DMMYTM2")).isEqualTo(testItem);
     }
 }
