@@ -3,7 +3,7 @@ package com.switchfully.order.domain.item;
 import java.time.LocalDate;
 
 public class ItemGroupDto {
-    private Item item;
+
     private String itemId;
     private int amount;
     private double itemGroupPrice;

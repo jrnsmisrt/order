@@ -38,8 +38,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "[ [ Order ]" +"\n"+
-                "* OrderNumber=" + orderNumber  +"\n"+
-                "* Items ordered" + listOfItemsToOrder +" ]";
+        return "[ [ Order: ("+orderNumber+")\n"+
+                "listOfItemsToOrder \n"+
+                "Total order price: "+price
+                +" ]";
     }
 }

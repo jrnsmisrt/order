@@ -24,9 +24,6 @@ public class ItemDto {
         return name;
     }
 
-    public ItemDto showItem() {
-        return this;
-    }
 
     public int ShowAmountInStock() {
         return amountInStock;

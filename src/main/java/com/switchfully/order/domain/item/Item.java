@@ -41,9 +41,7 @@ public class Item {
         return word.replaceAll("[AEIOU]", "").trim();
     }
 
-    public Item showItem() {
-        return this;
-    }
+
     public String showDescription(){
         return description;
     }

@@ -25,52 +25,76 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ItemGroupService itemGroupService;
     private final UserService userService;
-    private final Logger orderServiceLogger= LoggerFactory.getLogger(OrderService.class);
+    private final Logger orderServiceLogger = LoggerFactory.getLogger(OrderService.class);
 
 
     @Autowired
     public OrderService(ItemGroupRepository itemGroupRepository, OrderRepository orderRepository, ItemGroupService itemGroupService, UserService userService) {
 
         this.itemGroupRepository = itemGroupRepository;
-        this.orderRepository=orderRepository;
-        this.itemGroupService=itemGroupService;
-        this.userService=userService;
+        this.orderRepository = orderRepository;
+        this.itemGroupService = itemGroupService;
+        this.userService = userService;
 
     }
 
-
-    public Order showOneOrder(int orderNumber){
-        orderServiceLogger.info("Show One Order ordernumber: "+orderNumber+" was executed");
-       return orderRepository.showOrderById(orderNumber);
+    public double calculatePriceOfOrder(List<ItemGroup> itemGroupList) {
+         double orderPrice = 0;
+        for (ItemGroup itemGroup : itemGroupList) {
+            orderPrice+=itemGroupService.calculateItemGroupPrice(itemGroup);
+        }
+        return orderPrice;
     }
 
-    public List<Order> showAllOrders(){
+    public double calculateTotalPriceOfOrders(String customerId) {
+        double totalPriceOfOrders = 0;
+        for (Order order : orderRepository.showListOfOrders()) {
+            if (order.getCustomerId().equals(customerId)) {
+                totalPriceOfOrders += order.getPrice();
+            }
+        }
+        return totalPriceOfOrders;
+    }
+
+
+    public Order showOneOrder(int orderNumber) {
+        orderServiceLogger.info("Show One Order ordernumber: " + orderNumber + " was executed");
+        return orderRepository.showOrderById(orderNumber);
+    }
+
+    public List<Order> showAllOrders() {
         orderServiceLogger.info("Show all orders was executed");
         return orderRepository.showListOfOrders();
     }
 
-    public void addItemToBasket(String itemId, int amount, String customerId){
-        ItemGroup thisItemGroup = new ItemGroup(itemId,itemGroupService.calculateShippingDate(itemId),2);
+    public void addItemToBasket(String itemId, int amount, String customerId) {
+        ItemGroup thisItemGroup = new ItemGroup(itemId, itemGroupService.calculateShippingDate(itemId), 2);
         orderRepository.addItemGroupToBasket(thisItemGroup, customerId);
+
     }
 
-    public void orderItems(String customerId){
+    public double orderItems(String customerId) {
         List<ItemGroup> itemsFromBasket = new ArrayList<>();
+        double orderPrice = calculatePriceOfOrder(itemsFromBasket);
 
-        for(HashMap.Entry<String, ItemGroup> entry : orderRepository.getBasket().entrySet()){
-            if(entry.getKey().equals(customerId)){
+        for (HashMap.Entry<String, ItemGroup> entry : orderRepository.getBasket().entrySet()) {
+            if (entry.getKey().equals(customerId)) {
                 itemsFromBasket.add(entry.getValue());
             }
         }
         orderRepository.addOrderItemsToRepository(itemsFromBasket, customerId);
-        orderServiceLogger.info("A new Order has been placed by: "+customerId);
+        orderServiceLogger.info("A new Order has been placed by: " + customerId);
+        return orderPrice;
     }
 
-    public String viewReportOfOrders(String customerId){
-
-        return "test "+ orderRepository.showListOfOrders().stream()
-                .filter(order->order.getCustomerId().equals(customerId))
+    public String viewReportOfOrders(String customerId) {
+        List<Order> orderReportList = orderRepository.showListOfOrders().stream()
+                .filter(order -> order.getCustomerId().equals(customerId))
                 .collect(Collectors.toList());
+
+        return "Report Of Orders:: \n" +
+                orderReportList + "\n" +
+                "Total Price Of Orders :" + calculateTotalPriceOfOrders(customerId);
 
 
     }

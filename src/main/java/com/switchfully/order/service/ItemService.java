@@ -24,6 +24,10 @@ public class ItemService {
         return null;
     }
 
+    public double getItemPriceFromList(String itemId){
+        return getItemFromListWithId(itemId).getPrice();
+    }
+
     public void addItem(Item item){
         itemRepository.addItem(item);
     }

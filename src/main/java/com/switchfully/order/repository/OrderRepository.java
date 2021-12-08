@@ -49,11 +49,11 @@ public class OrderRepository {
         List<ItemGroup> dummyOrderList = new ArrayList<>();
         User dummyCustomer = new User("Dummy1", "Customer1", "customer1@order.com", "orderstreet 2, Brussels", "020");
         LocalDate shippingDate = LocalDate.now();
-        ItemGroup dummyItemGroup1 = new ItemGroup("DMMYITM1", shippingDate.plusDays(1), 2);
-        ItemGroup dummyItemGroup2 = new ItemGroup("DMMYITM2", shippingDate.plusDays(1) ,1);
-        ItemGroup dummyItemGroup3 = new ItemGroup("DMMYITM3", shippingDate.plusDays(1), 6);
-        ItemGroup dummyItemGroup4 = new ItemGroup("DMMYITM4", shippingDate.plusDays(1), 5);
-        ItemGroup dummyItemGroup5 = new ItemGroup("DMMYITM5", shippingDate.plusDays(1), 20);
+        ItemGroup dummyItemGroup1 = new ItemGroup("DMMYTM1", shippingDate.plusDays(1), 2);
+        ItemGroup dummyItemGroup2 = new ItemGroup("DMMYTM2", shippingDate.plusDays(1) ,1);
+        ItemGroup dummyItemGroup3 = new ItemGroup("DMMYTM3", shippingDate.plusDays(1), 6);
+        ItemGroup dummyItemGroup4 = new ItemGroup("DMMYTM4", shippingDate.plusDays(1), 5);
+        ItemGroup dummyItemGroup5 = new ItemGroup("DMMYTM5", shippingDate.plusDays(1), 20);
         dummyOrderList.add(dummyItemGroup1);
         dummyOrderList.add(dummyItemGroup2);
         dummyOrderList.add(dummyItemGroup3);

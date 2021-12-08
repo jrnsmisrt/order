@@ -14,26 +14,29 @@ public class ItemGroupMapper {
         return new ItemGroupDto()
                 .setItemid(itemGroup.getItemId())
                 .changeShippingDate(itemGroup.getShippingDate())
-                .setAmount(itemGroup.getAmount());
+                .setAmount(itemGroup.getAmount())
+                .setItemGroupPrice(itemGroup.getItemGroupPrice());
     }
 
-    public ItemGroup mapItemGroupDtoToItemGroup(ItemGroupDto itemGroupDto){
-        return new ItemGroup(itemGroupDto.getItemGroupId(),
+    public ItemGroup mapItemGroupDtoToItemGroup(ItemGroupDto itemGroupDto) {
+        ItemGroup newItemGroup = new ItemGroup(itemGroupDto.getItemGroupId(),
                 itemGroupDto.getShippingDate(),
                 itemGroupDto.getAmount());
+        newItemGroup.setItemGroupPrice(itemGroupDto.getItemGroupPrice());
+        return newItemGroup;
     }
 
-    public List<ItemGroup> mapItemGroupDtoListToItemGroupList(List<ItemGroupDto> itemGroupDtoList){
-        List<ItemGroup> itemGroupList= new ArrayList<>();
-        for(ItemGroupDto itemGroupDto : itemGroupDtoList){
+    public List<ItemGroup> mapItemGroupDtoListToItemGroupList(List<ItemGroupDto> itemGroupDtoList) {
+        List<ItemGroup> itemGroupList = new ArrayList<>();
+        for (ItemGroupDto itemGroupDto : itemGroupDtoList) {
             itemGroupList.add(mapItemGroupDtoToItemGroup(itemGroupDto));
         }
         return itemGroupList;
     }
 
-    public List<ItemGroupDto> mapItemGroupListToItemGroupDtoList(List<ItemGroup> itemGroupList){
+    public List<ItemGroupDto> mapItemGroupListToItemGroupDtoList(List<ItemGroup> itemGroupList) {
         List<ItemGroupDto> itemGroupDtolist = new ArrayList<>();
-        for(ItemGroup itemGroup : itemGroupList){
+        for (ItemGroup itemGroup : itemGroupList) {
             itemGroupDtolist.add(mapItemGroupToItemGroupDto(itemGroup));
         }
         return itemGroupDtolist;

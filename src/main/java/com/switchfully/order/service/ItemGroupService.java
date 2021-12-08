@@ -14,7 +14,6 @@ public class ItemGroupService {
     private final ItemRepository itemRepository;
     private final ItemGroupRepository itemGroupRepository;
     private final ItemService itemService;
-    private Item item;
 
 
     @Autowired
@@ -38,21 +37,10 @@ public class ItemGroupService {
         }
     }
 
-    private double calculateItemGroupPrice(ItemGroup itemGroup) {
-        return getItemById(itemGroup.getItemId()).getPrice() * itemGroup.getAmount();
-
+    public double calculateItemGroupPrice(ItemGroup itemGroup) {
+        double price = itemGroup.getAmount()*itemService.getItemPriceFromList(itemGroup.getItemId());
+        itemGroup.setItemGroupPrice(price);
+        return price;
     }
 
-    public double getItemGroupPrice(ItemGroup itemGroup) {
-        return getItemById(itemGroup.getItemId()).getPrice()*itemGroup.getAmount();
-    }
-
-    public Item getItemById(String itemId) {
-        for (Item item : itemRepository.showListOfItems()) {
-            if (item.getItemid().equals(itemId)) {
-                return item;
-            }
-        }
-        return null;
-    }
 }
