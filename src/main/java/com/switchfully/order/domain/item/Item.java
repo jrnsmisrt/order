@@ -1,5 +1,7 @@
 package com.switchfully.order.domain.item;
 
+import java.util.Objects;
+
 public class Item {
     private String itemId;
     private String name;
@@ -23,7 +25,7 @@ public class Item {
     private void setItemId() {
         String tempName = name;
 
-        itemId = removeVowels(tempName).toUpperCase();
+        itemId = removeVowels(tempName);
     }
 
     public String getNameOfItem(){
@@ -35,7 +37,8 @@ public class Item {
     }
 
     private String removeVowels(String word) {
-        return word.replaceAll("[aeiou]", "").trim();
+        word = word.toUpperCase();
+        return word.replaceAll("[AEIOU]", "").trim();
     }
 
     public Item showItem() {
@@ -68,6 +71,14 @@ public class Item {
                 "* Price: " + price + " \n" +
                 "* Amount In Stock: " + amountInStock+" ]";
 
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this==o) return true;
+        if(o==null || getClass()!=o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(name, item.name)&& Objects.equals(description, item.description);
     }
 
 
