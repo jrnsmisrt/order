@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -37,31 +38,6 @@ public class OrderService {
 
     }
 
-    public double getTotalPriceForOrder(int orderNumber){
-        double totalPriceForOrder=0;
-        for(Order order : orderRepository.showListOfOrders()){
-            if(order.getOrderNumber()==orderNumber){
-               totalPriceForOrder += getItemGroupPriceFromOrder(order);
-            }
-        }
-        return totalPriceForOrder;
-    }
-
-    public double getTotalPriceForAllOrders(){
-        double totalPriceAllOrders=0;
-        for(Order order: orderRepository.showListOfOrders()){
-            totalPriceAllOrders+=getTotalPriceForOrder(order.getOrderNumber());
-        }
-        return totalPriceAllOrders;
-    }
-
-    private double getItemGroupPriceFromOrder(Order order) {
-        double itemGroupPrice=0;
-        for(ItemGroup itemGroup : order.getListOfItemsToOrder()){
-            itemGroupPrice+=itemGroupService.getItemGroupPrice(itemGroup);
-        }
-        return itemGroupPrice;
-    }
 
     public Order showOneOrder(int orderNumber){
         orderServiceLogger.info("Show One Order ordernumber: "+orderNumber+" was executed");
@@ -88,6 +64,15 @@ public class OrderService {
         }
         orderRepository.addOrderItemsToRepository(itemsFromBasket, customerId);
         orderServiceLogger.info("A new Order has been placed by: "+customerId);
+    }
+
+    public String viewReportOfOrders(String customerId){
+
+        return "test "+ orderRepository.showListOfOrders().stream()
+                .filter(order->order.getCustomerId().equals(customerId))
+                .collect(Collectors.toList());
+
+
     }
 
 

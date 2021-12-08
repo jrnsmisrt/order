@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Order {
     private String customerId;
+    private double price;
     private int orderNumber;
     private static int orderCounter;
     private List<ItemGroup> listOfItemsToOrder;
@@ -16,6 +17,7 @@ public class Order {
         this.customerId=customerId;
         orderCounter++;
         orderNumber=orderCounter;
+        price=0;
     }
     public int getOrderNumber(){
         return this.orderNumber;
@@ -27,6 +29,12 @@ public class Order {
         return customerId;
     }
 
+    public void setPrice(double price){
+        this.price=price;
+    }
+    public double getPrice(){
+        return price;
+    }
 
     @Override
     public String toString() {

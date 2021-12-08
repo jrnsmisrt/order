@@ -59,5 +59,12 @@ public class OrderController {
        orderService.orderItems(customerId);
     }
 
+    @GetMapping(produces="application/json")
+    @RequestMapping(path="/reports/{customerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String viewReportOfOrders(@PathVariable String customerId){
+        return orderService.viewReportOfOrders(customerId);
+    }
+
 
 }
