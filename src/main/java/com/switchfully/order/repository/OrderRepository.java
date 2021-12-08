@@ -7,14 +7,18 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class OrderRepository {
     private List<Order> listOfOrders;
+    private HashMap<String, ItemGroup> basket;
 
     public OrderRepository() {
         this.listOfOrders = new ArrayList<>();
+        this.basket= new HashMap<>();
         fillRepositoryWithDummyOrders();
     }
 
@@ -31,10 +35,15 @@ public class OrderRepository {
         return null;
     }
 
-    public void addOrderItemsToRepository(List<ItemGroup> listOfItems, User customer){
-        listOfOrders.add(new Order(listOfItems,customer));
+    public void addOrderItemsToRepository(List<ItemGroup> listOfItems, String customerId){
+        listOfOrders.add(new Order(listOfItems, customerId));
     }
-
+    public void addItemGroupToBasket(ItemGroup itemGroup, String customerId){
+        basket.put(customerId, itemGroup);
+    }
+    public HashMap<String,ItemGroup> getBasket(){
+        return basket;
+    }
     private void fillRepositoryWithDummyOrders(){
         List<ItemGroup> dummyOrderList = new ArrayList<>();
         User dummyCustomer = new User("Dummy1", "Customer1", "customer1@order.com", "orderstreet 2, Brussels", "020");
@@ -49,7 +58,7 @@ public class OrderRepository {
         dummyOrderList.add(dummyItemGroup3);
         dummyOrderList.add(dummyItemGroup4);
         dummyOrderList.add(dummyItemGroup5);
-        Order dummyOrder = new Order(dummyOrderList, dummyCustomer);
+        Order dummyOrder = new Order(dummyOrderList, dummyCustomer.getUserId().toString());
 
         listOfOrders.add(dummyOrder);
     }

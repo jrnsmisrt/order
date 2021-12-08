@@ -55,11 +55,8 @@ public class OrderController {
 
     @PostMapping(produces = "application/json", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void orderItems(@RequestBody List<ItemGroupDto> itemsToOrder, String customerId) {
-        orderService.orderItems(itemsToOrder.stream()
-                .map(itemGroupMapper::mapItemGroupDtoToItemGroup)
-                .collect(Collectors.toList()), customerId);
-
+    public void orderItems(@RequestBody String customerId) {
+       orderService.orderItems(customerId);
     }
 
 

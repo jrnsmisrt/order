@@ -1,5 +1,6 @@
 package com.switchfully.order.service;
 
+import com.switchfully.order.domain.item.Item;
 import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.order.Order;
 
@@ -11,7 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderService {
@@ -69,10 +73,21 @@ public class OrderService {
         return orderRepository.showListOfOrders();
     }
 
-    public void orderItems(List<ItemGroup> itemsToOrder, String customerId){
-        User thisCustomer= userService.getUserById(customerId);
-        orderRepository.addOrderItemsToRepository(itemsToOrder, thisCustomer);
-        orderServiceLogger.info("A new Order has been placed by: "+thisCustomer.getUserId());
+    public void addItemToBasket(String itemId, int amount, String customerId){
+        ItemGroup thisItemGroup = new ItemGroup(itemId,itemGroupService.calculateShippingDate(itemId),2);
+        orderRepository.addItemGroupToBasket(thisItemGroup, customerId);
+    }
+
+    public void orderItems(String customerId){
+        List<ItemGroup> itemsFromBasket = new ArrayList<>();
+
+        for(HashMap.Entry<String, ItemGroup> entry : orderRepository.getBasket().entrySet()){
+            if(entry.getKey().equals(customerId)){
+                itemsFromBasket.add(entry.getValue());
+            }
+        }
+        orderRepository.addOrderItemsToRepository(itemsFromBasket, customerId);
+        orderServiceLogger.info("A new Order has been placed by: "+customerId);
     }
 
 

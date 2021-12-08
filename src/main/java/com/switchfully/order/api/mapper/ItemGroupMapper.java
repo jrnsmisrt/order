@@ -4,6 +4,9 @@ import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.item.ItemGroupDto;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class ItemGroupMapper {
 
@@ -18,6 +21,22 @@ public class ItemGroupMapper {
         return new ItemGroup(itemGroupDto.getItemGroupId(),
                 itemGroupDto.getShippingDate(),
                 itemGroupDto.getAmount());
+    }
+
+    public List<ItemGroup> mapItemGroupDtoListToItemGroupList(List<ItemGroupDto> itemGroupDtoList){
+        List<ItemGroup> itemGroupList= new ArrayList<>();
+        for(ItemGroupDto itemGroupDto : itemGroupDtoList){
+            itemGroupList.add(mapItemGroupDtoToItemGroup(itemGroupDto));
+        }
+        return itemGroupList;
+    }
+
+    public List<ItemGroupDto> mapItemGroupListToItemGroupDtoList(List<ItemGroup> itemGroupList){
+        List<ItemGroupDto> itemGroupDtolist = new ArrayList<>();
+        for(ItemGroup itemGroup : itemGroupList){
+            itemGroupDtolist.add(mapItemGroupToItemGroupDto(itemGroup));
+        }
+        return itemGroupDtolist;
     }
 
 }

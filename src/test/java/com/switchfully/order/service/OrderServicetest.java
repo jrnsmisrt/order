@@ -31,11 +31,9 @@ public class OrderServicetest {
 
     @Test
     void whenOrderingItems_AssertThatSaidItemsIsAddedToRepository(){
-        ItemGroup testItemGroup = new ItemGroup("DMMYITM3", LocalDate.now().plusDays(1), 2);
-        List<ItemGroup> testList = new ArrayList<>();
-        testList.add(testItemGroup);
+        orderService.addItemToBasket("DMMYTM3", 2, userService.viewAllCustomers().get(3).getUserId().toString());
 
-        orderService.orderItems(testList, userService.viewAllCustomers().get(2).getUserId().toString());
+        orderService.orderItems(userService.viewAllCustomers().get(3).getUserId().toString());
 
         Assertions.assertThat(orderRepository.showListOfOrders()).contains(orderService.showAllOrders().get(1));
 

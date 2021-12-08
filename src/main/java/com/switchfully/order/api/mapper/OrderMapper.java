@@ -11,7 +11,7 @@ public class OrderMapper {
         return new OrderDto()
                 .setListOfItemsToOrder(order.getListOfItemsToOrder())
                 .setOrderNumber(order.getOrderNumber())
-                .setCustomer(order.getCustomer());
+                .setCustomer(order.getCustomerId());
 
 
     }

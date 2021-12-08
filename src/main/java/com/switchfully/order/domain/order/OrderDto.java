@@ -6,7 +6,7 @@ import com.switchfully.order.domain.user.User;
 import java.util.List;
 
 public class OrderDto {
-    private User customer;
+    private String customerId;
     private int orderNumber;
     private List<ItemGroup> listOfItemsToOrder;
 
@@ -19,11 +19,11 @@ public class OrderDto {
         return this;
     }
 
-    public User getCustomer(){
-        return customer;
+    public String getCustomer(){
+        return customerId;
     }
-    public OrderDto setCustomer(User customer){
-        this.customer=customer;
+    public OrderDto setCustomer(String customerId){
+        this.customerId=customerId;
         return this;
     }
 
