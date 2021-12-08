@@ -41,7 +41,7 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(produces="application/json", consumes="application/json")
+    @PostMapping(produces="application/json", consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public void createCustomerAccount(@RequestBody UserDto userDto){
         User user = userMapper.mapUserDtoToUser(userDto);

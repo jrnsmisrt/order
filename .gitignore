@@ -33,3 +33,4 @@ build/
 .vscode/
 /log/application.log
 /log/application.log.2021-12-06.0.gz
+/log/application.log.2021-12-07.0.gz

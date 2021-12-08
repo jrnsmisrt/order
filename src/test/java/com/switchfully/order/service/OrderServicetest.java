@@ -35,7 +35,7 @@ public class OrderServicetest {
         List<ItemGroup> testList = new ArrayList<>();
         testList.add(testItemGroup);
 
-        orderService.orderItems(testList, userService.viewAllCustomers().get(2));
+        orderService.orderItems(testList, userService.viewAllCustomers().get(2).getUserId().toString());
 
         Assertions.assertThat(orderRepository.showListOfOrders()).contains(orderService.showAllOrders().get(1));
 
