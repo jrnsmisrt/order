@@ -17,7 +17,7 @@ public class ItemServiceTest {
     @Test
     void givenItemId_WhenGettingItemFromListWithId_AssertCorrectItemIsReturned() {
         String givenItemId = "DMMYTM1";
-        Item testItem = new Item("DummyItem1", "dummy dummy", 25, 100);
+        Item testItem = new Item("Dummyitem1", "dummy dummy", 25, 100);
         Assertions.assertThat(itemService.getItemFromListWithId(givenItemId)).isEqualTo(testItem);
     }
 
