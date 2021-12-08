@@ -7,7 +7,7 @@ public class ItemDto {
     private double price;
     private int amountInStock;
 
-    public String getItemid() {
+    public String getItemId() {
         return this.itemId;
     }
 
@@ -49,10 +49,10 @@ public class ItemDto {
     }
     @Override
     public String toString() {
-        return "[ " + name + " ] \n" +
+        return "[ [ " + name + " ] \n" +
                 "* Description: " + description + " \n" +
                 "* Price: " + price + " \n" +
-                "* Amount In Stock: " + amountInStock;
+                "* Amount In Stock: " + amountInStock+" ]";
 
     }
 }
