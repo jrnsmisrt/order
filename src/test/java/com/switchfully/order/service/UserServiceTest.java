@@ -24,4 +24,7 @@ public class UserServiceTest {
         userService.createCustomerAccount(testUser);
         Assertions.assertThat(userRepository.showAllUsers()).contains(testUser);
     }
+
+    //other methods have been tested with postman
+
 }
