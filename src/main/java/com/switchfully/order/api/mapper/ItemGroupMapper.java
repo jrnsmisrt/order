@@ -12,14 +12,14 @@ public class ItemGroupMapper {
 
     public ItemGroupDto mapItemGroupToItemGroupDto(ItemGroup itemGroup) {
         return new ItemGroupDto()
-                .setItemid(itemGroup.getItemId())
+                .setItemId(itemGroup.getItemId())
                 .changeShippingDate(itemGroup.getShippingDate())
                 .setAmount(itemGroup.getAmount())
                 .setItemGroupPrice(itemGroup.getItemGroupPrice());
     }
 
     public ItemGroup mapItemGroupDtoToItemGroup(ItemGroupDto itemGroupDto) {
-        ItemGroup newItemGroup = new ItemGroup(itemGroupDto.getItemGroupId(),
+        ItemGroup newItemGroup = new ItemGroup(itemGroupDto.getItemId(),
                 itemGroupDto.getShippingDate(),
                 itemGroupDto.getAmount());
         newItemGroup.setItemGroupPrice(itemGroupDto.getItemGroupPrice());
