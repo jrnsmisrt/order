@@ -21,27 +21,25 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
 
-    private final ItemGroupRepository itemGroupRepository;
     private final OrderRepository orderRepository;
     private final ItemGroupService itemGroupService;
-    private final UserService userService;
+    private final ItemService itemService;
     private final Logger orderServiceLogger = LoggerFactory.getLogger(OrderService.class);
 
 
     @Autowired
-    public OrderService(ItemGroupRepository itemGroupRepository, OrderRepository orderRepository, ItemGroupService itemGroupService, UserService userService) {
+    public OrderService(ItemService itemService, OrderRepository orderRepository, ItemGroupService itemGroupService) {
 
-        this.itemGroupRepository = itemGroupRepository;
+        this.itemService = itemService;
         this.orderRepository = orderRepository;
         this.itemGroupService = itemGroupService;
-        this.userService = userService;
 
     }
 
     public double calculatePriceOfOrder(List<ItemGroup> itemGroupList) {
-         double orderPrice = 0;
+        double orderPrice = 0;
         for (ItemGroup itemGroup : itemGroupList) {
-            orderPrice+=itemGroupService.calculateItemGroupPrice(itemGroup);
+            orderPrice += itemGroupService.getItemGroupPrice(itemGroup);
         }
         return orderPrice;
     }
@@ -68,7 +66,8 @@ public class OrderService {
     }
 
     public void addItemToBasket(String itemId, int amount, String customerId) {
-        ItemGroup thisItemGroup = new ItemGroup(itemId, itemGroupService.calculateShippingDate(itemId), 2);
+        Item basketItem = itemService.getItemFromListWithId(itemId);
+        ItemGroup thisItemGroup = new ItemGroup(basketItem, itemGroupService.calculateShippingDate(itemId), 2);
         orderRepository.addItemGroupToBasket(thisItemGroup, customerId);
 
     }
@@ -79,10 +78,13 @@ public class OrderService {
 
         for (HashMap.Entry<String, ItemGroup> entry : orderRepository.getBasket().entrySet()) {
             if (entry.getKey().equals(customerId)) {
+
                 itemsFromBasket.add(entry.getValue());
+
             }
         }
         orderRepository.addOrderItemsToRepository(itemsFromBasket, customerId);
+
         orderServiceLogger.info("A new Order has been placed by: " + customerId);
         return orderPrice;
     }

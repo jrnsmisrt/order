@@ -12,18 +12,17 @@ public class ItemGroupMapper {
 
     public ItemGroupDto mapItemGroupToItemGroupDto(ItemGroup itemGroup) {
         return new ItemGroupDto()
-                .setItemId(itemGroup.getItemId())
+                .setItem(itemGroup.getItem())
                 .changeShippingDate(itemGroup.getShippingDate())
                 .setAmount(itemGroup.getAmount())
                 .setItemGroupPrice(itemGroup.getItemGroupPrice());
     }
 
     public ItemGroup mapItemGroupDtoToItemGroup(ItemGroupDto itemGroupDto) {
-        ItemGroup newItemGroup = new ItemGroup(itemGroupDto.getItemId(),
+        return new ItemGroup(itemGroupDto.getItem(),
                 itemGroupDto.getShippingDate(),
                 itemGroupDto.getAmount());
-        newItemGroup.setItemGroupPrice(itemGroupDto.getItemGroupPrice());
-        return newItemGroup;
+
     }
 
     public List<ItemGroup> mapItemGroupDtoListToItemGroupList(List<ItemGroupDto> itemGroupDtoList) {

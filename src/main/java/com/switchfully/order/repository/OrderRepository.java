@@ -1,5 +1,6 @@
 package com.switchfully.order.repository;
 
+import com.switchfully.order.domain.item.Item;
 import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.order.Order;
 import com.switchfully.order.domain.user.User;
@@ -14,9 +15,11 @@ import java.util.List;
 public class OrderRepository {
     private List<Order> listOfOrders;
     private HashMap<String, ItemGroup> basket;
+    private ItemGroupRepository itemGroupRepository;
 
-    public OrderRepository() {
+    public OrderRepository(ItemGroupRepository itemGroupRepository) {
         this.listOfOrders = new ArrayList<>();
+        this.itemGroupRepository=itemGroupRepository;
         this.basket= new HashMap<>();
         fillRepositoryWithDummyOrders();
     }
@@ -48,16 +51,12 @@ public class OrderRepository {
         List<ItemGroup> dummyOrderList = new ArrayList<>();
         User dummyCustomer = new User("Dummy1", "Customer1", "customer1@order.com", "orderstreet 2, Brussels", "020");
         LocalDate shippingDate = LocalDate.now();
-        ItemGroup dummyItemGroup1 = new ItemGroup("DMMYTM1", shippingDate.plusDays(1), 2);
-        ItemGroup dummyItemGroup2 = new ItemGroup("DMMYTM2", shippingDate.plusDays(1) ,1);
-        ItemGroup dummyItemGroup3 = new ItemGroup("DMMYTM3", shippingDate.plusDays(1), 6);
-        ItemGroup dummyItemGroup4 = new ItemGroup("DMMYTM4", shippingDate.plusDays(1), 5);
-        ItemGroup dummyItemGroup5 = new ItemGroup("DMMYTM5", shippingDate.plusDays(1), 20);
-        dummyOrderList.add(dummyItemGroup1);
-        dummyOrderList.add(dummyItemGroup2);
-        dummyOrderList.add(dummyItemGroup3);
-        dummyOrderList.add(dummyItemGroup4);
-        dummyOrderList.add(dummyItemGroup5);
+        Item dummyItem5 = new Item("Dummyitem5", "dummy dummy", 99, 1);
+        ItemGroup dummyItemGroup = new ItemGroup(dummyItem5,shippingDate,5);
+
+        dummyOrderList.add(dummyItemGroup);
+        dummyOrderList.add(dummyItemGroup);
+
         Order dummyOrder = new Order(dummyOrderList, dummyCustomer.getUserId().toString());
 
         listOfOrders.add(dummyOrder);

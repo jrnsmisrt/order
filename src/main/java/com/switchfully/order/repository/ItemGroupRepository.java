@@ -1,5 +1,6 @@
 package com.switchfully.order.repository;
 
+import com.switchfully.order.domain.item.Item;
 import com.switchfully.order.domain.item.ItemGroup;
 import org.springframework.stereotype.Repository;
 
@@ -18,21 +19,19 @@ public class ItemGroupRepository {
         this.itemRepository=itemRepository;
     }
 
+    public List<ItemGroup> getListOfItemGroups(){
+        return listOfItemGroups;
+    }
 
     private void fillRepositoryWithDummyItemGroups() {
         LocalDate shippingDate = LocalDate.now();
-        ItemGroup dummyItemGroup1 = new ItemGroup("DMMYTM1", shippingDate.plusDays(1), 2);
-        ItemGroup dummyItemGroup2 = new ItemGroup("DMMYTM2", shippingDate.plusDays(1),30);
-        ItemGroup dummyItemGroup3 = new ItemGroup("DMMYTM3", shippingDate.plusDays(1), 6);
-        ItemGroup dummyItemGroup4 = new ItemGroup("DMMYTM4", shippingDate.plusDays(1), 5);
-        ItemGroup dummyItemGroup5 = new ItemGroup("DMMYTM5", shippingDate.plusDays(1), 20);
-
+        Item dummyItem1 = new Item("dummyItem1","dummy",10,2);
+        ItemGroup dummyItemGroup1 = new ItemGroup(dummyItem1, shippingDate.plusDays(1), 2);
+        ItemGroup dummyItemGroup2 = new ItemGroup(dummyItem1, shippingDate.plusDays(1), 10);
 
         listOfItemGroups.add(dummyItemGroup1);
         listOfItemGroups.add(dummyItemGroup2);
-        listOfItemGroups.add(dummyItemGroup3);
-        listOfItemGroups.add(dummyItemGroup4);
-        listOfItemGroups.add(dummyItemGroup5);
+
     }
 
 }

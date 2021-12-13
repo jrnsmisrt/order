@@ -14,6 +14,7 @@ public class ItemGroupService {
     private final ItemRepository itemRepository;
     private final ItemGroupRepository itemGroupRepository;
     private final ItemService itemService;
+    private Item item;
 
 
     @Autowired
@@ -21,11 +22,12 @@ public class ItemGroupService {
         this.itemRepository = itemRepository;
         this.itemGroupRepository = itemGroupRepository;
         this.itemService = itemService;
+
     }
 
 
-    public ItemGroup createItemGroup(String itemId, int amount) {
-        return new ItemGroup(itemId, calculateShippingDate(itemId),amount);
+    public ItemGroup createItemGroup(Item item, int amount) {
+        return new ItemGroup(item, calculateShippingDate(item.getItemid()),amount);
     }
 
     public LocalDate calculateShippingDate(String itemId) {
@@ -37,10 +39,8 @@ public class ItemGroupService {
         }
     }
 
-    public double calculateItemGroupPrice(ItemGroup itemGroup) {
-        double price = itemGroup.getAmount()*itemService.getItemPriceFromList(itemGroup.getItemId());
-        itemGroup.setItemGroupPrice(price);
-        return price;
+    public double getItemGroupPrice(ItemGroup itemGroup) {
+        return itemGroup.getItemGroupPrice();
     }
 
 }

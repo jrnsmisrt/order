@@ -3,31 +3,18 @@ package com.switchfully.order.domain.item;
 import java.time.LocalDate;
 
 public class ItemGroupDto {
-
-    private String itemId;
+    private Item item;
     private int amount;
     private LocalDate shippingDate;
     private double itemGroupPrice;
 
-    public LocalDate getShippingDate() {
-        return shippingDate;
-    }
-
-    public String getItemId() {
-        return itemId;
+    public ItemGroupDto setItem(Item item) {
+        this.item = item;
+        return this;
     }
 
     public double getItemGroupPrice() {
         return itemGroupPrice;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public ItemGroupDto setItemId(String itemId) {
-        this.itemId = itemId;
-        return this;
     }
 
     public ItemGroupDto setItemGroupPrice(double itemGroupPrice) {
@@ -36,21 +23,25 @@ public class ItemGroupDto {
     }
 
 
+    public LocalDate getShippingDate() {
+        return shippingDate;
+    }
+
     public ItemGroupDto changeShippingDate(LocalDate shippingDate) {
         this.shippingDate = shippingDate;
         return this;
     }
 
+    public int getAmount() {
+        return amount;
+    }
 
     public ItemGroupDto setAmount(int amount) {
         this.amount = amount;
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "* Item ordered: " + itemId + "| Amount ordered: " + amount + "| Price: " + itemGroupPrice + " ]";
+    public Item getItem() {
+        return item;
     }
-
-
 }
