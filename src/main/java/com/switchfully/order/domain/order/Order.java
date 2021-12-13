@@ -29,8 +29,12 @@ public class Order {
         return customerId;
     }
 
-    public void setPrice(double price){
-        this.price=price;
+    public void setPrice(){
+        double orderPrice = 0;
+        for(ItemGroup itemGroup : getListOfItemsToOrder()){
+           orderPrice+=itemGroup.getItemGroupPrice();
+        }
+        this.price=orderPrice;
     }
     public double getPrice(){
         return price;
@@ -39,8 +43,8 @@ public class Order {
     @Override
     public String toString() {
         return "[ [ Order: ("+orderNumber+")\n"+
-                "listOfItemsToOrder \n"+
-                "Total order price: "+price
+                getListOfItemsToOrder()+"\n"+
+                "Order price: "+getPrice()
                 +" ]";
     }
 }

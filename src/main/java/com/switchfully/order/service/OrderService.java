@@ -72,31 +72,32 @@ public class OrderService {
 
     }
 
-    public double orderItems(String customerId) {
+    public void orderItems(String customerId) {
         List<ItemGroup> itemsFromBasket = new ArrayList<>();
-        double orderPrice = calculatePriceOfOrder(itemsFromBasket);
+
 
         for (HashMap.Entry<String, ItemGroup> entry : orderRepository.getBasket().entrySet()) {
             if (entry.getKey().equals(customerId)) {
 
                 itemsFromBasket.add(entry.getValue());
 
+
             }
         }
         orderRepository.addOrderItemsToRepository(itemsFromBasket, customerId);
 
+        (orderRepository.showListOfOrders().get(orderRepository.showListOfOrders().size())).setPrice();
+
         orderServiceLogger.info("A new Order has been placed by: " + customerId);
-        return orderPrice;
+
     }
 
     public String viewReportOfOrders(String customerId) {
         List<Order> orderReportList = orderRepository.showListOfOrders().stream()
-                .filter(order -> order.getCustomerId().equals(customerId))
-                .collect(Collectors.toList());
+                .filter(order -> order.getCustomerId().equals(customerId)).toList();
 
         return "Report Of Orders:: \n" +
-                orderReportList + "\n" +
-                "Total Price Of Orders :" + calculateTotalPriceOfOrders(customerId);
+                orderReportList;
 
 
     }
