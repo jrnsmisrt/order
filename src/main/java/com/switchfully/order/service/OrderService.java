@@ -62,6 +62,7 @@ public class OrderService {
 
     public List<Order> showAllOrders() {
         orderServiceLogger.info("Show all orders was executed");
+
         return orderRepository.showListOfOrders();
     }
 
@@ -91,16 +92,5 @@ public class OrderService {
         orderServiceLogger.info("A new Order has been placed by: " + customerId);
 
     }
-
-    public String viewReportOfOrders(String customerId) {
-        List<Order> orderReportList = orderRepository.showListOfOrders().stream()
-                .filter(order -> order.getCustomerId().equals(customerId)).toList();
-
-        return "Report Of Orders:: \n" +
-                orderReportList;
-
-
-    }
-
 
 }

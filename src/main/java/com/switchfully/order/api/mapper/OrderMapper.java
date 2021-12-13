@@ -11,13 +11,13 @@ public class OrderMapper {
         return new OrderDto()
                 .setListOfItemsToOrder(order.getListOfItemsToOrder())
                 .setOrderNumber(order.getOrderNumber())
-                .setCustomer(order.getCustomerId());
-
+                .setCustomerId(order.getCustomerId())
+                .setPrice(order.getPrice());
 
     }
 
     public Order mapOrderDtoToOrder(OrderDto orderDto){
-        return new Order(orderDto.getListOfItemsToOrder(), orderDto.getCustomer());
+        return new Order(orderDto.getListOfItemsToOrder(), orderDto.getCustomerId());
 
     }
 }

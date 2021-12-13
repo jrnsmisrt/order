@@ -36,7 +36,7 @@ public class ItemGroup {
 
     @Override
     public String toString() {
-        return "* Item ordered: " + item.getItemid() + "| Amount ordered: " + amount + "| Price: " + itemGroupPrice + " ]";
+        return item.getItemid() + "| Amount ordered: " + amount + "| Price: " + itemGroupPrice+" \n ";
     }
 
     public void changeShippingDate(LocalDate shippingDate) {

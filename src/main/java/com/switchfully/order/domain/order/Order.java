@@ -17,7 +17,7 @@ public class Order {
         this.customerId=customerId;
         orderCounter++;
         orderNumber=orderCounter;
-        price=0;
+        price=getPrice();
     }
     public int getOrderNumber(){
         return this.orderNumber;
@@ -37,14 +37,21 @@ public class Order {
         this.price=orderPrice;
     }
     public double getPrice(){
+        setPrice();
         return price;
     }
+    public String getListOfItemGroups(){
+        StringBuilder itemGroupsOfOrder = new StringBuilder();
+        for(ItemGroup itemGroup : listOfItemsToOrder){
+            itemGroupsOfOrder.append(itemGroup);
+        }
 
+        return itemGroupsOfOrder.toString().trim();
+    }
     @Override
     public String toString() {
-        return "[ [ Order: ("+orderNumber+")\n"+
-                getListOfItemsToOrder()+"\n"+
-                "Order price: "+getPrice()
-                +" ]";
+        return "Order: ("+orderNumber+")\n"+
+                getListOfItemGroups()+"\n"+
+                "Total price: "+getPrice();
     }
 }

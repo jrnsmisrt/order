@@ -1,5 +1,6 @@
 package com.switchfully.order.domain.order;
 
+import com.switchfully.order.domain.item.Item;
 import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.user.User;
 
@@ -7,40 +8,57 @@ import java.util.List;
 
 public class OrderDto {
     private String customerId;
+    private double price;
     private int orderNumber;
     private List<ItemGroup> listOfItemsToOrder;
+    private String itemGroups;
 
-    public int getOrderNumber() {
+    public int getOrderNumber(){
         return this.orderNumber;
     }
-
-    public OrderDto setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
+    public OrderDto setOrderNumber(int orderNumber){
+        this.orderNumber=orderNumber;
         return this;
     }
 
-    public String getCustomer(){
-        return customerId;
-    }
-    public OrderDto setCustomer(String customerId){
-        this.customerId=customerId;
-        return this;
-    }
-
-    public OrderDto setListOfItemsToOrder(List<ItemGroup> listOfItemsToOrder){
-        this.listOfItemsToOrder=listOfItemsToOrder;
+    public OrderDto setCustomerId(String customerId) {
+        this.customerId = customerId;
         return this;
     }
 
     public List<ItemGroup> getListOfItemsToOrder(){
         return listOfItemsToOrder;
     }
+    public String getCustomerId(){
+        return customerId;
+    }
 
+    public OrderDto setPrice(double price){
+        this.price=price;
+        return this;
+    }
+    public double getPrice(){
+        return price;
+    }
 
+    public OrderDto setListOfItemsToOrder(List<ItemGroup> listOfItemsToOrder) {
+        this.listOfItemsToOrder=listOfItemsToOrder;
+        return this;
+    }
+    public String getListOfItemGroups(){
+        StringBuilder itemGroupsOfOrder = new StringBuilder();
+        for(ItemGroup itemGroup : listOfItemsToOrder){
+            itemGroupsOfOrder.append(itemGroup);
+        }
+
+        return itemGroupsOfOrder.toString().trim();
+    }
     @Override
     public String toString() {
-        return "[ [ Order ]" +"\n"+
-                "* OrderNumber=" + orderNumber  +"\n"+
-                "* Items ordered" + listOfItemsToOrder +" ]";
+        return "Order: ("+orderNumber+")\n"+
+                getListOfItemGroups()+"\n"+
+                "Total price: "+getPrice();
     }
+
+
 }
