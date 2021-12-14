@@ -4,6 +4,7 @@ import com.switchfully.order.domain.user.User;
 import com.switchfully.order.domain.user.UserLevel;
 import com.switchfully.order.repository.ItemRepository;
 import com.switchfully.order.repository.UserRepository;
+import com.switchfully.order.security.exceptions.CustomerDoesNotExistException;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,9 @@ public class UserService {
 
     public User viewOneCustomer(String userId) {
         userServiceLogger.info("view One Customer id: "+userId+" has been executed");
+        if(userRepository.getCustomerById(userId)==null){
+            throw new CustomerDoesNotExistException("the customer you are looking for does not exist in our dB.");
+        }
         return userRepository.getCustomerById(userId);
     }
 
