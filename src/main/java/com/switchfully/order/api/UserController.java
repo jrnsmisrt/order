@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping(produces = "application/json", path = "/{customerId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDto viewOneCustomer(@PathVariable String customerId) {
+    public UserDto viewOneCustomer(@PathVariable long customerId) {
         return userMapper.mapUsertoUserDto(userService.viewOneCustomer(customerId));
     }
 

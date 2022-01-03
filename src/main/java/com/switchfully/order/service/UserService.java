@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 
 
@@ -17,7 +19,7 @@ import org.slf4j.Logger;
 public class UserService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
-    private final Logger userServiceLogger= LoggerFactory.getLogger(UserService.class);
+    private final Logger userServiceLogger = LoggerFactory.getLogger(UserService.class);
 
 
     @Autowired
@@ -27,27 +29,30 @@ public class UserService {
 
     }
 
-    public User getUserById(String id) {
-        return userRepository.getUserById(id);
+    public User getUserById(long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isEmpty()) throw new CustomerDoesNotExistException("customer not found");
+        else {
+            return optionalUser.get();
+        }
     }
 
     public List<User> viewAllCustomers() {
         userServiceLogger.info("view All Customers has been executed");
-        return userRepository.showAllCustomers();
+        return userRepository.findAll();
     }
 
-    public User viewOneCustomer(String userId) {
-        userServiceLogger.info("view One Customer id: "+userId+" has been executed");
-        if(userRepository.getCustomerById(userId)==null){
-            throw new CustomerDoesNotExistException("the customer you are looking for does not exist in our dB.");
-        }
-        return userRepository.getCustomerById(userId);
+    public User viewOneCustomer(long userId) {
+        userServiceLogger.info("view One Customer id: " + userId + " has been executed");
+        if(userRepository.findById(userId).isEmpty()){
+            throw new CustomerDoesNotExistException("customer not found");
+        }else return userRepository.findById(userId).get();
     }
 
     public void createCustomerAccount(User user) {
-        userServiceLogger.info("A new Customer account has been created id: "+ user.getUserId());
+        userServiceLogger.info("A new Customer account has been created id: " + user.getUserId());
         user.changeUserLevel(UserLevel.CUSTOMER);
-        userRepository.addUser(user);
+        userRepository.save(user);
     }
 
 
