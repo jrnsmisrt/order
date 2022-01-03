@@ -53,13 +53,24 @@ public class OrderController {
         return orderMapper.mapOrderToOrderDto(orderRepository.showOrderById(orderNumber));
     }
 
-    @PostMapping(produces = "application/json", consumes = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void orderItems(@RequestBody String customerId) {
-       orderService.orderItems(customerId);
+    @PostMapping(produces = "application/json", path = "/confirm-order/{customerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void orderItems(@PathVariable String customerId) {
+        orderService.orderItems(customerId);
     }
 
+    @GetMapping(produces = "application/json", path = "/basket/{customerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ItemGroupDto> showContentsOfBasket(@PathVariable String customerId) {
+        return orderService.showContentsOfBasket(customerId);
+    }
 
+    @PostMapping(produces = "application/json", consumes = "application/json", path = "/basket/{customerId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<ItemGroupDto> addItemToBasket(@PathVariable String customerId, @RequestBody ItemGroupDto item) {
+        orderService.addItemToBasket(customerId, item);
+        return orderService.showContentsOfBasket(customerId);
+    }
 
 
 }

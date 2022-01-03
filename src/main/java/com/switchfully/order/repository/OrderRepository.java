@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 @Repository
 public class OrderRepository {
@@ -36,7 +39,12 @@ public class OrderRepository {
         }
         return null;
     }
-
+    public List<ItemGroup> showBasket(String customerId){
+        return basket.entrySet().stream()
+                .filter(key -> basket.containsKey(customerId))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+    }
 
     public void addOrderItemsToRepository(List<ItemGroup> listOfItems, String customerId){
         listOfOrders.add(new Order(listOfItems, customerId));
@@ -47,6 +55,7 @@ public class OrderRepository {
     public HashMap<String,ItemGroup> getBasket(){
         return basket;
     }
+
     private void fillRepositoryWithDummyOrders(){
         List<ItemGroup> dummyOrderList = new ArrayList<>();
         User dummyCustomer = new User("Dummy1", "Customer1", "customer1@order.com", "orderstreet 2, Brussels", "020");
@@ -57,7 +66,7 @@ public class OrderRepository {
         dummyOrderList.add(dummyItemGroup);
         dummyOrderList.add(dummyItemGroup);
 
-        Order dummyOrder = new Order(dummyOrderList, dummyCustomer.getUserId().toString());
+        Order dummyOrder = new Order(dummyOrderList, Long.toString(dummyCustomer.getUserId()));
 
         listOfOrders.add(dummyOrder);
     }

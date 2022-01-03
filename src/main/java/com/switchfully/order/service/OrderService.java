@@ -1,39 +1,44 @@
 package com.switchfully.order.service;
 
-import com.switchfully.order.domain.item.Item;
+import com.switchfully.order.api.mapper.ItemGroupMapper;
 import com.switchfully.order.domain.item.ItemGroup;
+import com.switchfully.order.domain.item.ItemGroupDto;
 import com.switchfully.order.domain.order.Order;
 
-import com.switchfully.order.domain.user.User;
-import com.switchfully.order.repository.ItemGroupRepository;
+
 import com.switchfully.order.repository.OrderRepository;
+import com.switchfully.order.repository.UserBasketRepository;
+import com.switchfully.order.security.exceptions.CustomerDoesNotExistException;
+import com.switchfully.order.security.exceptions.ItemBasketIsEmptyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
 
 @Service
 public class OrderService {
 
-    private final OrderRepository orderRepository;
+    private OrderRepository orderRepository;
     private final ItemGroupService itemGroupService;
     private final ItemService itemService;
     private final Logger orderServiceLogger = LoggerFactory.getLogger(OrderService.class);
+    private final ItemGroupMapper itemGroupMapper;
+    private UserBasketRepository userBasketRepository;
 
 
     @Autowired
-    public OrderService(ItemService itemService, OrderRepository orderRepository, ItemGroupService itemGroupService) {
+    public OrderService(ItemService itemService, OrderRepository orderRepository, ItemGroupService itemGroupService, ItemGroupMapper itemGroupMapper, UserBasketRepository userBasketRepository) {
 
         this.itemService = itemService;
         this.orderRepository = orderRepository;
         this.itemGroupService = itemGroupService;
 
+        this.itemGroupMapper = itemGroupMapper;
+        this.userBasketRepository = userBasketRepository;
     }
 
     public double calculatePriceOfOrder(List<ItemGroup> itemGroupList) {
@@ -66,31 +71,37 @@ public class OrderService {
         return orderRepository.showListOfOrders();
     }
 
-    public void addItemToBasket(String itemId, int amount, String customerId) {
-        Item basketItem = itemService.getItemFromListWithId(itemId);
-        ItemGroup thisItemGroup = new ItemGroup(basketItem, itemGroupService.calculateShippingDate(itemId), 2);
-        orderRepository.addItemGroupToBasket(thisItemGroup, customerId);
-
+    public void addItemToBasket(String customerId, ItemGroupDto item) {
+        userBasketRepository.addItemGroupToBasket(customerId, itemGroupMapper.mapItemGroupDtoToItemGroup(item));
     }
+
+    public List<ItemGroupDto> showContentsOfBasket(String customerId) {
+        if(!(userBasketRepository.getCompleteBasket().containsKey(customerId))) throw new CustomerDoesNotExistException("customer not found");
+        if(userBasketRepository.getBasketForCustomer(customerId).isEmpty()) throw new ItemBasketIsEmptyException("Basket is empty");
+        return itemGroupMapper.mapItemGroupListToItemGroupDtoList(userBasketRepository.getBasketForCustomer(customerId));
+    }
+
 
     public void orderItems(String customerId) {
+
         List<ItemGroup> itemsFromBasket = new ArrayList<>();
-
-
-        for (HashMap.Entry<String, ItemGroup> entry : orderRepository.getBasket().entrySet()) {
-            if (entry.getKey().equals(customerId)) {
-
-                itemsFromBasket.add(entry.getValue());
-
-
-            }
+        for (ItemGroup i : userBasketRepository.getBasketForCustomer(customerId)) {
+            itemsFromBasket.add(i);
         }
+
         orderRepository.addOrderItemsToRepository(itemsFromBasket, customerId);
 
-        (orderRepository.showListOfOrders().get(orderRepository.showListOfOrders().size())).setPrice();
+        for (Order order : orderRepository.showListOfOrders()) {
+            if (order.getCustomerId().equals(customerId))
+                order.setPrice();
+        }
+
+        userBasketRepository.emptyBasket(customerId);
 
         orderServiceLogger.info("A new Order has been placed by: " + customerId);
-
     }
 
+
 }
+
+

@@ -7,7 +7,7 @@ public class UserDto {
 
     private String firstName;
     private String lastName;
-    private UUID userId;
+    private long userId;
     private UserLevel userLevel;
     private String phoneNumber;
     private String emailAddress;
@@ -29,10 +29,10 @@ public class UserDto {
     public String getLastName() {
         return lastName;
     }
-    public UUID getUserId(){
+    public long getUserId(){
         return userId;
     }
-    public UserDto setUserId(UUID userId){
+    public UserDto setUserId(long userId){
         this.userId=userId;
         return this;
     }

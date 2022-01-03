@@ -1,33 +1,31 @@
 package com.switchfully.order.domain.user;
 
-
-import java.util.UUID;
-
 public class User {
-
+    private static long idCounter;
     private String firstName;
     private String lastName;
-    private final UUID userId;
+    private final long userId;
     private UserLevel userLevel;
     private String phoneNumber;
     private String emailAddress;
     private String address;
 
-    public User(String firstName, String lastName,String emailAddress, String address, String phoneNumber) {
+    public User(String firstName, String lastName, String emailAddress, String address, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userId=UUID.randomUUID();
+        this.userId = idCounter;
+        idCounter++;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.address = address;
-        this.userLevel=UserLevel.CUSTOMER;
+        this.userLevel = UserLevel.CUSTOMER;
     }
 
-    public void changeUserLevel(UserLevel userLevel){
-        this.userLevel= userLevel;
+    public void changeUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
     }
 
-    public UserLevel showUserLevel(){
+    public UserLevel showUserLevel() {
         return this.userLevel;
     }
 
@@ -39,13 +37,15 @@ public class User {
         return lastName;
     }
 
-    public void changeFirstName(String firstName){
-        this.firstName=firstName;
+    public void changeFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    public void changeLastName(String lastName){
-        this.lastName=lastName;
+
+    public void changeLastName(String lastName) {
+        this.lastName = lastName;
     }
-    public UUID getUserId(){
+
+    public long getUserId() {
         return userId;
     }
 
@@ -78,10 +78,10 @@ public class User {
     @Override
     public String toString() {
         return "[ [User] \n" +
-                "UserLevel: "+userLevel+"\n"+
+                "UserLevel: " + userLevel + "\n" +
                 firstName + lastName + "\n" +
                 "E-mail address: " + emailAddress + "\n" +
                 "Address: " + address + "\n" +
-                "PhoneNumber: " + phoneNumber+" ]";
+                "PhoneNumber: " + phoneNumber + " ]";
     }
 }

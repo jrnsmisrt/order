@@ -20,7 +20,7 @@ public class UserRepository {
 
     public User getUserById(String id) {
         for(User user : listOfUsers){
-            if(user.getUserId().toString().equals(id)){
+            if(Long.toString(user.getUserId()).equals(id)){
                 return user;
             }
 
@@ -30,7 +30,7 @@ public class UserRepository {
 
     public User getCustomerById(String id){
         for(User user : listOfUsers){
-            if(user.getUserId().toString().equals(id)&&user.showUserLevel()==UserLevel.CUSTOMER){
+            if(Long.toString(user.getUserId()).equals(id)&&user.showUserLevel()==UserLevel.CUSTOMER){
                 return user;
             }
 
