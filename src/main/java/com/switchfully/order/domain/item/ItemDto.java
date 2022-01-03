@@ -1,17 +1,17 @@
 package com.switchfully.order.domain.item;
 
 public class ItemDto {
-    private String itemId;
+    private long itemId;
     private String name;
     private String description;
     private double price;
     private int amountInStock;
 
-    public String getItemId() {
+    public long getItemId() {
         return this.itemId;
     }
 
-    public ItemDto setItemId(String itemId) {
+    public ItemDto setItemId(long itemId) {
         this.itemId=itemId;
         return this;
     }

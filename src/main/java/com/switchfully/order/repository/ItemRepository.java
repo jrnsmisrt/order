@@ -1,13 +1,14 @@
 package com.switchfully.order.repository;
 
 import com.switchfully.order.domain.item.Item;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 @Repository
-public class ItemRepository {
-    private List<Item> listOfItems;
+public interface ItemRepository extends JpaRepository<Item, Long> {
+  /*  private List<Item> listOfItems;
 
     public ItemRepository(){
         this.listOfItems = new ArrayList<>();
@@ -33,6 +34,6 @@ public class ItemRepository {
         listOfItems.add(dummyItem3);
         listOfItems.add(dummyItem4);
         listOfItems.add(dummyItem5);
-    }
+    }*/
 
 }

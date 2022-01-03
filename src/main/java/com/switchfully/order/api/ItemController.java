@@ -36,7 +36,7 @@ public class ItemController {
 
     @GetMapping(produces="application/json", path="/{itemId}")
     @ResponseStatus(HttpStatus.OK)
-    public ItemDto viewItem(@PathVariable String itemId){
+    public ItemDto viewItem(@PathVariable long itemId){
         return itemMapper.mapItemToItemDto(itemService.getItemFromListWithId(itemId));
     }
 

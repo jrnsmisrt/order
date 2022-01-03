@@ -14,12 +14,12 @@ public class ItemServiceTest {
     @Autowired
     ItemRepository itemRepository;
 
-    @Test
+/*    @Test
     void givenItemId_WhenGettingItemFromListWithId_AssertCorrectItemIsReturned() {
-        String givenItemId = "DMMYTM1";
+       String givenItemId = "DMMYTM1";
         Item testItem = new Item("Dummyitem1", "dummy dummy", 25, 100);
-        Assertions.assertThat(itemService.getItemFromListWithId(givenItemId)).isEqualTo(testItem);
-    }
+      Assertions.assertThat(itemService.getItemFromListWithId(givenItemId)).isEqualTo(testItem);
+   }*/
 
     @Test
     void givenNewItem_WhenAddingItem_AssertItemIsAddedToRepository() {
@@ -28,10 +28,10 @@ public class ItemServiceTest {
         Assertions.assertThat(itemRepository.showListOfItems()).contains(testItem);
     }
 
-    @Test
+/*    @Test
     void givenUpdateParameters_WhenUpdatingItem_AssertUpdatedItemContainsGivenParameters(){
         Item testItem = new Item("testItem", "testItem", 20, 1);
         itemService.updateItem(testItem,"DMMYTM2");
         Assertions.assertThat(itemService.getItemFromListWithId("DMMYTM2")).isEqualTo(testItem);
-    }
+    }*/
 }

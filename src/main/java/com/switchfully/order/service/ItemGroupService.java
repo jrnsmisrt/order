@@ -30,7 +30,7 @@ public class ItemGroupService {
         return new ItemGroup(item, calculateShippingDate(item.getItemid()),amount);
     }
 
-    public LocalDate calculateShippingDate(String itemId) {
+    public LocalDate calculateShippingDate(long itemId) {
         LocalDate shippingDate = LocalDate.now();
         if(itemService.getItemFromListWithId(itemId).showAmountInStock()>0){
             return shippingDate.plusDays(1);

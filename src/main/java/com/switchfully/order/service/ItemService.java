@@ -14,9 +14,9 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public Item getItemFromListWithId(String id){
+    public Item getItemFromListWithId(long id){
         for(Item item : itemRepository.showListOfItems()){
-            if(item.getItemid().equals(id)){
+            if(item.getItemid()==id){
                 return item;
             }
 
@@ -24,7 +24,7 @@ public class ItemService {
         return null;
     }
 
-    public double getItemPriceFromList(String itemId){
+    public double getItemPriceFromList(long itemId){
         return getItemFromListWithId(itemId).getPrice();
     }
 
@@ -32,9 +32,9 @@ public class ItemService {
         itemRepository.addItem(item);
     }
 
-    public void updateItem(Item updateItem, String itemId){
+    public void updateItem(Item updateItem, long itemId){
         for(Item item : itemRepository.showListOfItems()){
-            if(item.getItemid().equals(itemId)){
+            if(item.getItemid()==itemId){
                 item.changeDescription(updateItem.showDescription());
                 item.changeNameOfItem(updateItem.getNameOfItem());
                 item.changePriceOfItem(updateItem.getPrice());
