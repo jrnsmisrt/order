@@ -25,7 +25,7 @@ public class ItemServiceTest {
     void givenNewItem_WhenAddingItem_AssertItemIsAddedToRepository() {
         Item testItem = new Item("testItem", "testItem", 20, 1);
         itemService.addItem(testItem);
-        Assertions.assertThat(itemRepository.showListOfItems()).contains(testItem);
+        Assertions.assertThat(itemRepository.findAll()).contains(testItem);
     }
 
 /*    @Test

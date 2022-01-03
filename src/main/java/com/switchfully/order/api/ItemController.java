@@ -29,7 +29,7 @@ public class ItemController {
     @GetMapping(produces="application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<ItemDto> viewAllItems(){
-        return itemRepository.showListOfItems().stream()
+        return itemRepository.findAll().stream()
                 .map(itemMapper::mapItemToItemDto)
                 .collect(Collectors.toList());
     }
