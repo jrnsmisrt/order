@@ -34,3 +34,6 @@ build/
 /log/application.log
 /log/application.log.2021-12-06.0.gz
 /log/application.log.2021-12-07.0.gz
+/log/application.log.2021-12-08.0.gz
+/log/application.log.2021-12-09.0.gz
+/log/application.log.2021-12-13.0.gz
