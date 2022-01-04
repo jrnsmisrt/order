@@ -1,11 +1,9 @@
 package com.switchfully.order.domain.item;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
-
+@Entity
+@Table(name="items")
 public class Item {
     private static long idCounter;
     @Id
@@ -28,6 +26,10 @@ public class Item {
         this.amountInStock = amountInStock;
         this.itemId = idCounter;
         idCounter++;
+    }
+
+    public Item(){
+
     }
 
     public long getItemid() {

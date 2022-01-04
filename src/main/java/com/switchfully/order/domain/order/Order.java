@@ -3,55 +3,71 @@ package com.switchfully.order.domain.order;
 import com.switchfully.order.domain.item.ItemGroup;
 import com.switchfully.order.domain.user.User;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "orders")
 public class Order {
-    private String customerId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long orderNumber;
+    @Column(name = "fk_customer_id")
+    private long customerId;
+    @Column(name = "price")
     private double price;
-    private int orderNumber;
-    private static int orderCounter;
+    @Column(name = "items")
+    @Transient
     private List<ItemGroup> listOfItemsToOrder;
 
-    public Order(List<ItemGroup> itemsToOrder, String customerId) {
-        this.listOfItemsToOrder=itemsToOrder;
-        this.customerId=customerId;
-        orderCounter++;
-        orderNumber=orderCounter;
-        price=getPrice();
+    public Order(List<ItemGroup> itemsToOrder, long customerId) {
+        this.listOfItemsToOrder = itemsToOrder;
+        this.customerId = customerId;
+        this.price = getPrice();
     }
-    public int getOrderNumber(){
+
+    public Order() {
+
+    }
+
+    public long getOrderNumber() {
         return this.orderNumber;
     }
-    public List<ItemGroup> getListOfItemsToOrder(){
+
+    public List<ItemGroup> getListOfItemsToOrder() {
         return listOfItemsToOrder;
     }
-    public String getCustomerId(){
+
+    public long getCustomerId() {
         return customerId;
     }
 
-    public void setPrice(){
+    public void setPrice() {
         double orderPrice = 0;
-        for(ItemGroup itemGroup : getListOfItemsToOrder()){
-           orderPrice+=itemGroup.getItemGroupPrice();
+        for (ItemGroup itemGroup : getListOfItemsToOrder()) {
+            orderPrice += itemGroup.getItemGroupPrice();
         }
-        this.price=orderPrice;
+        this.price = orderPrice;
     }
-    public double getPrice(){
+
+    public double getPrice() {
         setPrice();
         return price;
     }
-    public String getListOfItemGroups(){
+
+    public String getListOfItemGroups() {
         StringBuilder itemGroupsOfOrder = new StringBuilder();
-        for(ItemGroup itemGroup : listOfItemsToOrder){
+        for (ItemGroup itemGroup : listOfItemsToOrder) {
             itemGroupsOfOrder.append(itemGroup);
         }
 
         return itemGroupsOfOrder.toString().trim();
     }
+
     @Override
     public String toString() {
-        return "Order: ("+orderNumber+")\n"+
-                getListOfItemGroups()+"\n"+
-                "Total price: "+getPrice();
+        return "Order: (" + orderNumber + ")\n" +
+                getListOfItemGroups() + "\n" +
+                "Total price: " + getPrice();
     }
 }

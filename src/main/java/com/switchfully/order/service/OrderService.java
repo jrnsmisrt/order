@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -49,10 +50,10 @@ public class OrderService {
         return orderPrice;
     }
 
-    public double calculateTotalPriceOfOrders(String customerId) {
+    public double calculateTotalPriceOfOrders(long customerId) {
         double totalPriceOfOrders = 0;
-        for (Order order : orderRepository.showListOfOrders()) {
-            if (order.getCustomerId().equals(customerId)) {
+        for (Order order : orderRepository.findAll()) {
+            if (order.getCustomerId()==(customerId)) {
                 totalPriceOfOrders += order.getPrice();
             }
         }
@@ -60,41 +61,41 @@ public class OrderService {
     }
 
 
-    public Order showOneOrder(int orderNumber) {
+    public Order showOneOrder(long orderNumber) {
         orderServiceLogger.info("Show One Order ordernumber: " + orderNumber + " was executed");
-        return orderRepository.showOrderById(orderNumber);
+        Optional<Order> optionalOrder = orderRepository.findById(orderNumber);
+        if(optionalOrder.isEmpty()){
+            throw new NullPointerException("order not found");
+        }
+        return optionalOrder.get();
     }
 
     public List<Order> showAllOrders() {
         orderServiceLogger.info("Show all orders was executed");
 
-        return orderRepository.showListOfOrders();
+        return orderRepository.findAll();
     }
 
-    public void addItemToBasket(String customerId, ItemGroupDto item) {
+    public void addItemToBasket(long customerId, ItemGroupDto item) {
         userBasketRepository.addItemGroupToBasket(customerId, itemGroupMapper.mapItemGroupDtoToItemGroup(item));
     }
 
-    public List<ItemGroupDto> showContentsOfBasket(String customerId) {
+    public List<ItemGroupDto> showContentsOfBasket(long customerId) {
         if(!(userBasketRepository.getCompleteBasket().containsKey(customerId))) throw new CustomerDoesNotExistException("customer not found");
         if(userBasketRepository.getBasketForCustomer(customerId).isEmpty()) throw new ItemBasketIsEmptyException("Basket is empty");
         return itemGroupMapper.mapItemGroupListToItemGroupDtoList(userBasketRepository.getBasketForCustomer(customerId));
     }
 
 
-    public void orderItems(String customerId) {
+    public void orderItems(long customerId) {
 
         List<ItemGroup> itemsFromBasket = new ArrayList<>();
         for (ItemGroup i : userBasketRepository.getBasketForCustomer(customerId)) {
             itemsFromBasket.add(i);
         }
+        orderRepository.save(new Order(itemsFromBasket, customerId));
 
-        orderRepository.addOrderItemsToRepository(itemsFromBasket, customerId);
-
-        for (Order order : orderRepository.showListOfOrders()) {
-            if (order.getCustomerId().equals(customerId))
-                order.setPrice();
-        }
+        orderRepository.findById(customerId).get().setPrice();
 
         userBasketRepository.emptyBasket(customerId);
 

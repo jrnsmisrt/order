@@ -29,15 +29,14 @@ public class ReportService {
 
     public List<Order> viewAllReportsOfOrders() {
 
-        return orderRepository.showListOfOrders().stream()
+        return orderRepository.findAll().stream()
                 .sorted()
                 .toList();
     }
 
 
-    public List<Order> viewReportOfOrdersByCustomer(String customerId) {
-        return orderRepository.showListOfOrders().stream()
-                .filter(order -> order.getCustomerId().equals(customerId))
+    public List<Order> viewReportOfOrdersByCustomer(long customerId) {
+        return orderRepository.findById(customerId).stream()
                 .toList();
 
 

@@ -10,25 +10,25 @@ import java.util.List;
 
 @Repository
 public class UserBasketRepository {
-    private HashMap<String, List<ItemGroup>> basket;
+    private HashMap<Long, List<ItemGroup>> basket;
 
 
     public UserBasketRepository() {
         this.basket = new HashMap<>();
     }
 
-    public HashMap<String, List<ItemGroup>> getCompleteBasket() {
+    public HashMap<Long, List<ItemGroup>> getCompleteBasket() {
         return basket;
     }
 
-    public List<ItemGroup> getBasketForCustomer(String customerId) {
+    public List<ItemGroup> getBasketForCustomer(long customerId) {
 //        if(!basket.containsKey(customerId)){
 //            throw new NullPointerException("Customer not found");
 //        }
         return basket.get(customerId);
     }
 
-    public void addItemGroupToBasket(String customerId, ItemGroup itemGroup) {
+    public void addItemGroupToBasket(long customerId, ItemGroup itemGroup) {
         if (!basket.containsKey(customerId)) {
             List<ItemGroup> newItemGroupList = new ArrayList<>();
             newItemGroupList.add(itemGroup);
@@ -39,7 +39,7 @@ public class UserBasketRepository {
         }
 
 
-    public void removeItemGroupFromBasket(String customerId, ItemGroup itemGroup) {
+    public void removeItemGroupFromBasket(long customerId, ItemGroup itemGroup) {
         for (List<ItemGroup> i : basket.values()) {
             if (!basket.get(customerId).contains(itemGroup)) {
                 throw new NullPointerException("Item not found");
@@ -48,7 +48,7 @@ public class UserBasketRepository {
         }
     }
 
-    public void emptyBasket(String customerId) {
+    public void emptyBasket(long customerId) {
         for (List<ItemGroup> i : basket.values()) {
 
             if (basket.get(customerId).isEmpty()) {

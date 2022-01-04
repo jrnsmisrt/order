@@ -7,21 +7,21 @@ import com.switchfully.order.domain.user.User;
 import java.util.List;
 
 public class OrderDto {
-    private String customerId;
+    private long customerId;
     private double price;
-    private int orderNumber;
+    private long orderNumber;
     private List<ItemGroup> listOfItemsToOrder;
     private String itemGroups;
 
-    public int getOrderNumber(){
+    public long getOrderNumber(){
         return this.orderNumber;
     }
-    public OrderDto setOrderNumber(int orderNumber){
+    public OrderDto setOrderNumber(long orderNumber){
         this.orderNumber=orderNumber;
         return this;
     }
 
-    public OrderDto setCustomerId(String customerId) {
+    public OrderDto setCustomerId(long customerId) {
         this.customerId = customerId;
         return this;
     }
@@ -29,7 +29,7 @@ public class OrderDto {
     public List<ItemGroup> getListOfItemsToOrder(){
         return listOfItemsToOrder;
     }
-    public String getCustomerId(){
+    public long getCustomerId(){
         return customerId;
     }
 

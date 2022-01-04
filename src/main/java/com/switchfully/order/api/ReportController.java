@@ -39,7 +39,7 @@ public class ReportController {
     @GetMapping(produces = "application/json")
     @RequestMapping(path = "/{customerId}")
     @ResponseStatus(HttpStatus.OK)
-    public String viewReportOfOrdersByCustomer(@PathVariable String customerId) {
+    public String viewReportOfOrdersByCustomer(@PathVariable long customerId) {
         return reportService.viewReportOfOrdersByCustomer(customerId).stream()
                 .map(orderMapper::mapOrderToOrderDto)
                 .toList().toString();

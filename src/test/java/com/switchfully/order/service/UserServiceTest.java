@@ -30,7 +30,7 @@ public class UserServiceTest {
     void whenCreatingNewCustomerAccount_AssureCustomerIsAddedToRepository() {
         User testUser = new User("TestUser", "testUser", "@@@", "ttt", "000");
         userService.createCustomerAccount(testUser);
-        Assertions.assertThat(userRepository.showAllUsers()).contains(testUser);
+        Assertions.assertThat(userRepository.findAll()).contains(testUser);
     }
 
   /*  @Test

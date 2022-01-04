@@ -59,19 +59,19 @@ public class OrderController {
 
     @PostMapping(produces = "application/json", path = "/confirm-order/{customerId}")
     @ResponseStatus(HttpStatus.OK)
-    public void orderItems(@PathVariable String customerId) {
+    public void orderItems(@PathVariable long customerId) {
         orderService.orderItems(customerId);
     }
 
     @GetMapping(produces = "application/json", path = "/basket/{customerId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<ItemGroupDto> showContentsOfBasket(@PathVariable String customerId) {
+    public List<ItemGroupDto> showContentsOfBasket(@PathVariable long customerId) {
         return orderService.showContentsOfBasket(customerId);
     }
 
     @PostMapping(produces = "application/json", consumes = "application/json", path = "/basket/{customerId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<ItemGroupDto> addItemToBasket(@PathVariable String customerId, @RequestBody ItemGroupDto item) {
+    public List<ItemGroupDto> addItemToBasket(@PathVariable long customerId, @RequestBody ItemGroupDto item) {
         orderService.addItemToBasket(customerId, item);
         return orderService.showContentsOfBasket(customerId);
     }
