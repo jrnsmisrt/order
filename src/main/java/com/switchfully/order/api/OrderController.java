@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,8 +50,11 @@ public class OrderController {
 
     @GetMapping(produces = "application/json", path = "/{orderNumber}")
     @ResponseStatus(HttpStatus.OK)
-    public OrderDto viewOrder(@PathVariable int orderNumber) {
-        return orderMapper.mapOrderToOrderDto(orderRepository.showOrderById(orderNumber));
+    public OrderDto viewOrder(@PathVariable long orderNumber) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderNumber);
+        if (optionalOrder.isEmpty()) throw new NullPointerException("Order has not been found");
+        else return orderMapper.mapOrderToOrderDto(orderRepository.findById(orderNumber).get());
+
     }
 
     @PostMapping(produces = "application/json", path = "/confirm-order/{customerId}")
