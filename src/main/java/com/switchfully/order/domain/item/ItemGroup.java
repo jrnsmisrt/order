@@ -1,8 +1,12 @@
 package com.switchfully.order.domain.item;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
+
 public class ItemGroup {
+
     private Item item;
     private int amount;
     private LocalDate shippingDate;
@@ -14,11 +18,12 @@ public class ItemGroup {
         this.shippingDate = shippingDate;
         this.itemGroupPrice = setItemGroupPrice(item, amount);
     }
+
     private double setItemGroupPrice(Item item, int amount) {
-        return item.getPrice()* amount;
+        return item.getPrice() * amount;
     }
 
-    public Item getItem(){
+    public Item getItem() {
         return item;
     }
 
@@ -36,7 +41,7 @@ public class ItemGroup {
 
     @Override
     public String toString() {
-        return item.getItemid() + "| Amount ordered: " + amount + "| Price: " + itemGroupPrice+" \n ";
+        return item.getItemid() + "| Amount ordered: " + amount + "| Price: " + itemGroupPrice + " \n ";
     }
 
     public void changeShippingDate(LocalDate shippingDate) {

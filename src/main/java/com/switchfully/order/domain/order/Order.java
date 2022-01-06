@@ -16,7 +16,8 @@ public class Order {
     private long customerId;
     @Column(name = "price")
     private double price;
-    @Column(name = "items")
+    @Column(name="items")
+    private String orderedItems;
     @Transient
     private List<ItemGroup> listOfItemsToOrder;
 
@@ -24,6 +25,7 @@ public class Order {
         this.listOfItemsToOrder = itemsToOrder;
         this.customerId = customerId;
         this.price = getPrice();
+        this.orderedItems=itemsToOrder.toString();
     }
 
     public Order() {
