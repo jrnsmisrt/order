@@ -5,7 +5,6 @@ import java.util.Objects;
 @Entity
 @Table(name="items")
 public class Item {
-    private static long idCounter;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long itemId;
@@ -24,8 +23,7 @@ public class Item {
         this.description = description;
         this.price = price;
         this.amountInStock = amountInStock;
-        this.itemId = idCounter;
-        idCounter++;
+
     }
 
     public Item(){

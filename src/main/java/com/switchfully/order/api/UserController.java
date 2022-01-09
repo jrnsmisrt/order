@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
-    private UserRepository userRepository;
-    private UserService userService;
-    private UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     @Autowired
     public UserController(UserRepository userRepository, UserService userService, UserMapper userMapper) {
@@ -35,10 +35,7 @@ public class UserController {
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> viewAllCustomers() {
-
-        return userService.viewAllCustomers().stream()
-                .map(user -> userMapper.mapUsertoUserDto(user))
-                .collect(Collectors.toList());
+        return userService.viewAllCustomers();
     }
 
     @PostMapping(produces="application/json", consumes="application/json")

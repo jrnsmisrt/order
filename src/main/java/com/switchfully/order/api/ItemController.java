@@ -23,32 +23,30 @@ public class ItemController {
     public ItemController(ItemService itemService, ItemMapper itemMapper, ItemRepository itemRepository) {
         this.itemService = itemService;
         this.itemMapper = itemMapper;
-        this.itemRepository=itemRepository;
+        this.itemRepository = itemRepository;
     }
 
-    @GetMapping(produces="application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<ItemDto> viewAllItems(){
-        return itemRepository.findAll().stream()
-                .map(itemMapper::mapItemToItemDto)
-                .collect(Collectors.toList());
+    public List<ItemDto> viewAllItems() {
+        return itemService.getAllItems();
     }
 
-    @GetMapping(produces="application/json", path="/{itemId}")
+    @GetMapping(produces = "application/json", path = "/{itemId}")
     @ResponseStatus(HttpStatus.OK)
-    public ItemDto viewItem(@PathVariable long itemId){
+    public ItemDto viewItem(@PathVariable long itemId) {
         return itemMapper.mapItemToItemDto(itemService.getItemFromListWithId(itemId));
     }
 
-    @GetMapping(produces="application/json", consumes="application/json")
+    @PostMapping(produces = "application/json", consumes = "application/json", path = "/additem")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addItem(@RequestBody ItemDto item){
+    public void addItem(@RequestBody ItemDto item) {
         itemService.addItem(itemMapper.mapItemDtoToItem(item));
     }
-
-    /*@GetMapping(produces="application/json", consumes="application/json")
+    /*
+    @PostMapping(produces="application/json", consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateItem(@RequestBody ItemDto item, String itemId){
+    public void updateItem(@RequestBody ItemDto item, long itemId){
         itemService.updateItem(itemMapper.mapItemDtoToItem(item),itemId);
     }*/
 

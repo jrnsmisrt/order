@@ -16,7 +16,7 @@ public class Order {
     private long customerId;
     @Column(name = "price")
     private double price;
-    @Column(name="items")
+    @Transient
     private String orderedItems;
     @Transient
     private List<ItemGroup> listOfItemsToOrder;

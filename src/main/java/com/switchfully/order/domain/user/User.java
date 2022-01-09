@@ -1,7 +1,4 @@
 package com.switchfully.order.domain.user;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +12,6 @@ public class User {
     private String firstName;
     @Column(name="last_name")
     private String lastName;
-    @Embedded
     @Column(name="user_level")
     private UserLevel userLevel;
     @Column(name="phone_number")
