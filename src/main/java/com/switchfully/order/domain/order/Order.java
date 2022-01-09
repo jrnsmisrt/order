@@ -22,7 +22,6 @@ public class Order {
     private List<ItemGroup> listOfItemsToOrder;
 
     public Order(List<ItemGroup> itemsToOrder, long customerId) {
-        this.listOfItemsToOrder = itemsToOrder;
         this.customerId = customerId;
         this.price = getPrice();
         this.orderedItems=itemsToOrder.toString();
@@ -56,7 +55,7 @@ public class Order {
         setPrice();
         return price;
     }
-
+/*
     public String getListOfItemGroups() {
         StringBuilder itemGroupsOfOrder = new StringBuilder();
         for (ItemGroup itemGroup : listOfItemsToOrder) {
@@ -71,5 +70,5 @@ public class Order {
         return "Order: (" + orderNumber + ")\n" +
                 getListOfItemGroups() + "\n" +
                 "Total price: " + getPrice();
-    }
+    }*/
 }

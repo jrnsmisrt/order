@@ -56,7 +56,7 @@ public class OrderController {
         else return orderMapper.mapOrderToOrderDto(orderRepository.findById(orderNumber).get());
 
     }
-
+/*
     @PostMapping(produces = "application/json", path = "/confirm-order/{customerId}")
     @ResponseStatus(HttpStatus.OK)
     public void orderItems(@PathVariable long customerId) {
@@ -74,7 +74,7 @@ public class OrderController {
     public List<ItemGroupDto> addItemToBasket(@PathVariable long customerId, @RequestBody ItemGroupDto item) {
         orderService.addItemToBasket(customerId, item);
         return orderService.showContentsOfBasket(customerId);
-    }
+    }*/
 
 
 }

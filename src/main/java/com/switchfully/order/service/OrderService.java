@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -72,8 +73,7 @@ public class OrderService {
 
     public List<Order> showAllOrders() {
         orderServiceLogger.info("Show all orders was executed");
-
-        return orderRepository.findAll();
+        return orderRepository.findAll().stream().collect(Collectors.toList());
     }
 
     public void addItemToBasket(long customerId, ItemGroupDto item) {
