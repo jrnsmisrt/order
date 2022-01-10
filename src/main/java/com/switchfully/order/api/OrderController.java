@@ -43,38 +43,20 @@ public class OrderController {
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDto> viewAllOrders() {
-        return orderService.showAllOrders().stream()
-                .map(orderMapper::mapOrderToOrderDto)
-                .collect(Collectors.toList());
+        return orderService.showAllOrders();
     }
 
     @GetMapping(produces = "application/json", path = "/{orderNumber}")
     @ResponseStatus(HttpStatus.OK)
     public OrderDto viewOrder(@PathVariable long orderNumber) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderNumber);
-        if (optionalOrder.isEmpty()) throw new NullPointerException("Order has not been found");
-        else return orderMapper.mapOrderToOrderDto(orderRepository.findById(orderNumber).get());
-
-    }
-/*
-    @PostMapping(produces = "application/json", path = "/confirm-order/{customerId}")
-    @ResponseStatus(HttpStatus.OK)
-    public void orderItems(@PathVariable long customerId) {
-        orderService.orderItems(customerId);
+       return orderService.viewOrder(orderNumber);
     }
 
-    @GetMapping(produces = "application/json", path = "/basket/{customerId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ItemGroupDto> showContentsOfBasket(@PathVariable long customerId) {
-        return orderService.showContentsOfBasket(customerId);
-    }
-
-    @PostMapping(produces = "application/json", consumes = "application/json", path = "/basket/{customerId}")
+    @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<ItemGroupDto> addItemToBasket(@PathVariable long customerId, @RequestBody ItemGroupDto item) {
-        orderService.addItemToBasket(customerId, item);
-        return orderService.showContentsOfBasket(customerId);
-    }*/
+    public OrderDto placeOrder(Long customerId, @RequestBody List<ItemGroupDto>itemsToOrder){
+        return orderService.placeOrder(customerId, itemGroupMapper.mapItemGroupDtoListToItemGroupList(itemsToOrder));
+    }
 
 
 }
