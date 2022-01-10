@@ -73,8 +73,7 @@ public class OrderService {
 
     public List<OrderDto> showAllOrders() {
         return orderRepository.findAll().stream()
-                .map(orderMapper::mapOrderToOrderDto)
-                .collect(Collectors.toList());
+                .map(orderMapper::mapOrderToOrderDto).toList();
     }
 
     public OrderDto placeOrder(long customerId, List<ItemGroup> itemsToOrder) {
